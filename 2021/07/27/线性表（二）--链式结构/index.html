@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<script>
+    (function(){
+        if(''){
+            if (prompt('��������������') !== ''){
+                alert('�������');
+                history.back();
+            }
+        }
+    })();
+</script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script>
+    (function(){
+        if(''){
+            if (prompt('��������������') !== ''){
+                alert('�������');
+                history.back();
+            }
+        }
+    })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script>
+    (function(){
+        if(''){
+            if (prompt('��������������') !== ''){
+                alert('�������');
+                history.back();
+            }
+        }
+    })();
+</script>
+<meta name="theme-color" content="#222">
+<script>
+    (function(){
+        if(''){
+            if (prompt('��������������') !== ''){
+                alert('�������');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Data Structure,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="我要吐槽一下markdown的格式转换。。。代码的格式搞了好久。上传的时候一直出错。。不得已又去看了看它的语法。。就很烦。。 好了，吐槽完了就来说正事了，接上一章的顺序结构，这章我们讲讲链式储存结构，所谓链式存储，就是采用链式方式将结点链接起来的存储结构称为链表。不同于顺序结构，链表只需要改变节点地址就可以实现动态操作。 线性表的链式存储又可以分为五种：1、单链表结构 2、循环链表结构 3、双向链">
+<meta name="keywords" content="Data Structure">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性表（二）--链式存储 （C语言实现）">
+<meta property="og:url" content="http://yoursite.com/2021/07/27/线性表（二）--链式结构/index.html">
+<meta property="og:site_name" content="不 是我">
+<meta property="og:description" content="我要吐槽一下markdown的格式转换。。。代码的格式搞了好久。上传的时候一直出错。。不得已又去看了看它的语法。。就很烦。。 好了，吐槽完了就来说正事了，接上一章的顺序结构，这章我们讲讲链式储存结构，所谓链式存储，就是采用链式方式将结点链接起来的存储结构称为链表。不同于顺序结构，链表只需要改变节点地址就可以实现动态操作。 线性表的链式存储又可以分为五种：1、单链表结构 2、循环链表结构 3、双向链">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2018/07/29/5b5d4e1dcd248.jpg">
+<meta property="og:updated_time" content="2018-07-30T07:25:51.695Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="线性表（二）--链式存储 （C语言实现）">
+<meta name="twitter:description" content="我要吐槽一下markdown的格式转换。。。代码的格式搞了好久。上传的时候一直出错。。不得已又去看了看它的语法。。就很烦。。 好了，吐槽完了就来说正事了，接上一章的顺序结构，这章我们讲讲链式储存结构，所谓链式存储，就是采用链式方式将结点链接起来的存储结构称为链表。不同于顺序结构，链表只需要改变节点地址就可以实现动态操作。 线性表的链式存储又可以分为五种：1、单链表结构 2、循环链表结构 3、双向链">
+<meta name="twitter:image" content="https://i.loli.net/2018/07/29/5b5d4e1dcd248.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/07/27/线性表（二）--链式结构/">
+
+
+
+
+
+  <title>线性表（二）--链式存储 （C语言实现） | 不 是我</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不 是我</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">让懂的人懂，让不懂的人不懂。让世界是世界，我甘心是我的茧。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/07/27/线性表（二）--链式结构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lyjgod">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不 是我">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">线性表（二）--链式存储 （C语言实现）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-07-27T19:15:43+08:00">
+                2021-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我要吐槽一下markdown的格式转换。。。代码的格式搞了好久。上传的时候一直出错。。不得已又去看了看它的语法。。就很烦。。</p>
+<p>好了，吐槽完了就来说正事了，接上一章的顺序结构，这章我们讲讲链式储存结构，所谓链式存储，就是采用链式方式将结点链接起来的存储结构称为链表。不同于顺序结构，链表只需要改变节点地址就可以实现动态操作。</p>
+<p>线性表的链式存储又可以分为五种：1、单链表结构 2、循环链表结构 3、双向链表结构 4、静态链表结构（这个有些不同。。）<br><a id="more"></a><br><strong>首先我们来了解单链表结构</strong></p>
+<p><strong>关于单链表结点</strong>，我们一般设置成包含数据域和指针域，也就是后一个结点的指针域存放了前一个结点的地址，而数据域则是每个节点中包含的内容。类似于火车的车厢。为了方便表的运算处理，一般还有一个头结点和尾节点。头结点的指针域存放第一个结点的地址，而数据域可以不放，也可以储存线性表的长度附加信息。至于尾节点，则要求指针域指向null。貌似还是蛮好理解的。。</p>
+<p><img src="https://i.loli.net/2018/07/29/5b5d4e1dcd248.jpg" alt></p>
+<p>那么单链表类型的 C 语言定义 描述如下： </p>
+<pre><code>typedef struct Node / * 结点类型定义 * / 
+{ ElemType data； 
+  struct Node  * next； 
+}Node, *LinkList；  /* LinkList 为结构指针类型*/ 
+</code></pre><p>LinkList 与 Node<em> 同为结构指针类型，这两种类型是等价的。通常我们习惯上用LinkList说明指针变量，强调它是某个单链表的头指<br>针变量，用 Node</em>来定义指向单链表中节点的指针</p>
+<p><strong>单链表的操作必须从头指针开始依次访问表中结点，所以一般以头结点表示一个单链表</strong>‘</p>
+<p>知道了单链表的定义和结点结构，我们就可以对单链表进行基本运算了，和顺序结构一样，基本操作无外乎<strong>1、求长度 2、初始化 3、查找 4、插入 5、删除。</strong></p>
+<p><strong>那就从求长度开始</strong>（我偏不要先初始化。。）<br>求长度其实很简单，只需要从头到尾遍历一次即可。<br>代码如下：</p>
+<pre><code>int ListLength(LinkList L)  /*求带头结点的单链表 L 的长度*/
+{   
+   Node *p; 
+   p=L-&gt;next;  
+   j=0;   /*用来存放单链表的长度*/ 
+   while(p!=NULL) {
+   p=p-&gt;next; 
+   j++; 
+   }
+   return j; /*j 为求得的单链表长度*/   
+}  /* ListLength */ 
+</code></pre><p><strong>然后是初始化单链表</strong><br>事实上，建立单链表没有想象中那么简单，有三种方法：1、建立空表 2、头插法建表 3、尾插法建表。知道我为什么先求长度了把。。</p>
+<p>首先，建立空表。</p>
+<pre><code>InitList（LinkList *L） 
+{  
+  *L = （LinkList）malloc（sizeof（Node））; /*建立头结点*/  
+ （*L）-&gt;next = NULL; /*建立空的单链表 L*/  
+} 
+</code></pre><p>emmm。。lyjgod对malloc有那么一点点阴影阿。。不过这个代码已经写的很明白了。</p>
+<p>然后是头插法建表，这种建表方式需要我们先建立一个空链表。<br>已知空链表 L，依次读入结点数据头插入，直到读入结<br>束标志为止。 </p>
+<p>每插入一个结点到表头的步骤：<br>1.生成新结点 s 并赋值；<br>2.将结点 s 插入到首元结点之前，即表头结点之后；<br>3.重复以上过程，生成并插入第 i 个结点，直到读取到结束字符为$时，<br>结束读取数据，建表完毕。</p>
+<pre><code> void CreateFromHead(LinkList  L) /* L 是已经初始化好的空链表的头指针，通过键盘输入表中元素值，利用头 插法建单链表 L */   
+ {  
+    Node* s;
+    char c; 
+    int  flag=1;  
+    while(flag) /* flag 初值为 1，当输入“$”时，置 flag 为 0， 建表结束*/ 
+    {   
+       c=getchar();
+       if(c!=’$’)   
+       { 
+          s=(Node*)malloc(sizeof(Node));  /*建立新结点 s*/  
+          s-&gt;data=c; 
+          s-&gt;next=L-&gt;next;  /*将 s 结点插入表头*/ 
+          L-&gt;next=s;   
+    } 
+    else 
+       flag=0; 
+    } 
+} 
+</code></pre><p><strong>头插法得到的单链表的逻辑顺序与输入的顺序相反，所以也称为逆序建表法。</strong>这个有点点难理解，需要仔细思考思考，最好拿纸和笔自己演示演示。如果能理解好这一点，对后面的尾插法理解也很有帮助。</p>
+<p><strong>好了，我们来讲一讲尾插法。</strong>其实差不多</p>
+<p>已知空链表 L，设置尾指针 r 指向当前表尾  r=L<br>依次读入结点数据尾插入，直到读入结束标志时将表尾结点链域置空</p>
+<p>每插入一个结点到表尾的步骤：<br>1.生成新结点 s；<br>2.将结点 s 插入到表尾 r 结点之后；该结点作为当前表尾结点</p>
+<pre><code>void  CreateFromTail(LinkList L) /* L 是已经初始化好的空链表的头指针，通过键盘输入元素值，利用尾插法建 单链表 L */ 
+{
+   Node *r, *s; 
+   int flag =1; /*设置一个标志，初值为 1，当输入“$”时，flag 为 0， 建表结束*/ 
+   r=L; /* r 指针动态指向链表的当前表尾，以便于做尾插入，其初值指 向头结点*/ 
+
+   while(flag)/*循环输入表中元素值，将建立新结点 s 插入表尾*/ 
+   {
+       c=getchar(); 
+       if(c!=’$’)  
+       {
+          s=(Node*)malloc(sizeof(Node));
+          s-&gt;data=c; 
+          r-&gt;next=s; 
+          r=s;   
+       } 
+       else  
+       {   
+          flag=0;  
+          r-&gt;next=NULL;   /*将最后一个结点的 next 链域置为空，表示 链表的结束*/  
+       } 
+   }   /*while*/ 
+ } /*CreateFromTail*/ 
+</code></pre><p>能建立表之后。就要对表进行操作，<strong>首先看看查找。</strong>单链表查找可分为按序号查找和按值查找的两种方式。 这两种方式其实都比较容易理解，我就直接上代码了。</p>
+<pre><code> 按序号查找。
+ Node * Get (LinkList  L, int i) / * 在带头结点的单链表 L 中查找第 i 个结点，若找到(1≤i≤n)，则返回 该结点的存储位置;  否则返回 NULL * / 
+{  
+     int j；
+     Node  *p；
+     p=L；j=0；  / * 从头结点开始扫描 * /
+     while ((p-&gt;next!=NULL)&amp;&amp;(j&lt;i)）
+     { 
+          p=p-&gt;next；/ * 扫描下一结点 * /
+          j++；   / * 已扫描结点计数器 * /
+     } 
+     if（i= =j）
+          return p；   / * 找到了第 i 个结点 
+     else   
+          return NULL；/ * 找不到，i≤0 或 i&gt;n* / 
+
+}/ * Get * /
+</code></pre><p>这里需要注意的是我们无法直接查找第i个结点，因为每个结点的地址仅存在于上一个结点。</p>
+<pre><code>按值查找
+Node *Locate( LinkList L,ElemType key) / * 在带头结点的单链表 L 中查找其结点值等于 key 的结点，若找到则返 回该结点的位置 p，否则返回 NULL * /
+{ 
+   Node *p;
+   p=L-&gt;next;   / * 从表中第一个结点开始 * /
+
+   while (p!=NULL)
+   {
+   if (p-&gt;data!=key)
+       p=p-&gt;next; 
+   else  
+       break; / * 找到结点值=key 时退出循环 * /
+   }
+   return p; 
+}  / * Locate * / 
+</code></pre><p>这里直接返回p是因为如果找不到会直接返回尾节点的指针域，而尾节点的指针域即为null，因此不需要特别判定。</p>
+<p>最后就是插入和删除了（快了。快了。。这章终于要讲完了），事实上在创建单链表的时候，我们已经做过插入这个操作了，现在要注意的就是节点位置。比如说我们现在要在第i个结点之前插入一个结点。<br>步骤如下：<br>1.确定第 i-1 个结点的位置 （同按序号查找算法）<br>2.申请新结点 s </p>
+<ol start="3">
+<li>插入挂链：新结点 s 插至第 i-1 个结点之后<br>S 结点的后继指向第 i 个结点   s-&gt;next=pre-&gt;next<br>第 i-1 个结点的指针指向 s      pre-&gt;next=s </li>
+</ol>
+<p>那么代码是这样的：</p>
+<pre><code>void InsList(LinkList L,int i,ElemType e) 
+/*在带头结点的单链表L中第i个位置插入值为e的新结点s*/ 
+{   
+    Node *pre,*s;  int k; 
+    pre=L;  k=0;/*从“头”开始，查找第i-1个结点*/ while(pre!=NULL&amp;&amp;k&lt;i-1)  /*表未查完且未查到第i-1个时重复，找到pre指向第i-1个*/  
+    { 
+       pre=pre-&gt;next; 
+       k=k+1;  
+    } /*查找第i-1结点*/ 
+
+    if(!pre)  /*如当前位置pre为空表已找完还未数到第i个，说明插入位置不合理*/  
+    { 
+       printf(“插入位置不合理！”)；   
+       return ERROR; 
+    }   
+    s=(Node*)malloc(sizeof(Node));   /*申请一个新的结点S */   
+    s-&gt;data=e;   /*值e置入s的数据域*/ 
+
+    s-&gt;next=pre-&gt;next;/*修改指针，完成插入操作*/   pre-&gt;next=s; return OK; 
+} 
+</code></pre><p>是不是和头插法尾插法差不多。。<br>那么删除也是异曲同工。话不多说放上本章最后的代码。</p>
+<pre><code>int DelList(LinkList L,int i,ElemType *e) 
+/*在带头结点的单链表L中删除第i个元素，并将删除的元素保存到变量*e中
+*/ 
+{ Node *pre,*r;   int k; 
+  pre=L;k=0; 
+  while(pre-&gt;next!=NULL&amp;&amp;k&lt;i-1) /*寻找被删除结点i的前驱结点i-1使p指向它*/ 
+  { 
+     pre=pre-&gt;next;  
+     k=k+1; 
+  }/*查找第i-1个结点*/ 
+
+  if(!(pre-&gt;next)) /* 即while循环是因为p&gt;next=NULL或i&lt;1而跳出的,而是因为没有找到合法的前驱位置，说明删除位置i不合法。*/ 
+  { 
+     printf(“删除结点的位置i不合理！”); 
+     return ERROR; 
+  } 
+  r=pre-&gt;next; 
+  pre-&gt;next=r-&gt;next;/*修改指针，删除结点r*/ 
+  *e=r-&gt;data; 
+
+  free(r);/*释放被删除的结点所占的内存空间*/ 
+  return OK; 
+} 
+</code></pre><p>第一次写这样的文章，其实自己也在学习中，希望能够加深自己对于数据结构的理解。也可以分享自己的学习经验。继续努力吧！lyjgod！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Data-Structure/" rel="tag"># Data Structure</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/07/27/线性表（三）--链式结构实践/" rel="next" title="线性表（三）--链式结构实践 （C语言实现）">
+                <i class="fa fa-chevron-left"></i> 线性表（三）--链式结构实践 （C语言实现）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/07/27/线性表（五）--双向链表/" rel="prev" title="线性表（五）--双向链表以及静态链表 （C语言实现）">
+                线性表（五）--双向链表以及静态链表 （C语言实现） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zODQ2NS8xNDk5Mw=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="lyjgod">
+            
+              <p class="site-author-name" itemprop="name">lyjgod</p>
+              <p class="site-description motion-element" itemprop="description">one man one pack</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/godlyj" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://nanfengx.top/" title="nanfengx" target="_blank">nanfengx</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lyjgod</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
