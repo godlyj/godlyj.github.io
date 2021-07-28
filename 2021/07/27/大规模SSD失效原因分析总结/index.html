@@ -118,17 +118,20 @@
 
 
 
-<meta name="description" content="one man one pack">
+<meta name="description" content="企业存储环境    错误等级 错误类别 占比 可能错误相关原因 整体替换相关因素     A Scsi层错误 32.78% 不可纠正错误。检测到固态硬盘的硬件错误，比如可能来自于DRAM的ECC错误。闪存容量：因为在实验中发现，当容量非常大时，替换率会有上升趋势，并且更严重的A类故障占比上升，同时影响较小的D类故障也会上升。 闪存容量：当闪存容量非常大时，整体替换率更高。猜测会是cell之间的干扰">
 <meta property="og:type" content="article">
-<meta property="og:title" content="大规模SSD失效原因分析总结">
+<meta property="og:title" content="不 是我">
 <meta property="og:url" content="http://yoursite.com/2021/07/27/大规模SSD失效原因分析总结/index.html">
 <meta property="og:site_name" content="不 是我">
-<meta property="og:description" content="one man one pack">
+<meta property="og:description" content="企业存储环境    错误等级 错误类别 占比 可能错误相关原因 整体替换相关因素     A Scsi层错误 32.78% 不可纠正错误。检测到固态硬盘的硬件错误，比如可能来自于DRAM的ECC错误。闪存容量：因为在实验中发现，当容量非常大时，替换率会有上升趋势，并且更严重的A类故障占比上升，同时影响较小的D类故障也会上升。 闪存容量：当闪存容量非常大时，整体替换率更高。猜测会是cell之间的干扰">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-07-27T12:11:08.424Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/26768472-675ce076d47b2640.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/26768472-0fd55ee7aaae7563.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2021-07-28T02:32:43.591Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="大规模SSD失效原因分析总结">
-<meta name="twitter:description" content="one man one pack">
+<meta name="twitter:title" content="不 是我">
+<meta name="twitter:description" content="企业存储环境    错误等级 错误类别 占比 可能错误相关原因 整体替换相关因素     A Scsi层错误 32.78% 不可纠正错误。检测到固态硬盘的硬件错误，比如可能来自于DRAM的ECC错误。闪存容量：因为在实验中发现，当容量非常大时，替换率会有上升趋势，并且更严重的A类故障占比上升，同时影响较小的D类故障也会上升。 闪存容量：当闪存容量非常大时，整体替换率更高。猜测会是cell之间的干扰">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/26768472-675ce076d47b2640.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -164,7 +167,7 @@
 
 
 
-  <title>大规模SSD失效原因分析总结 | 不 是我</title>
+  <title> | 不 是我</title>
   
 
 
@@ -308,7 +311,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">大规模SSD失效原因分析总结</h1>
+          <h1 class="post-title" itemprop="name headline"></h1>
         
 
         <div class="post-meta">
@@ -358,7 +361,156 @@
       
 
       
-        
+        <h1 id="企业存储环境"><a href="#企业存储环境" class="headerlink" title="企业存储环境"></a>企业存储环境</h1><hr>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">错误等级</th>
+<th style="text-align:left">错误类别</th>
+<th style="text-align:center">占比</th>
+<th style="text-align:left">可能错误相关原因</th>
+<th>整体替换相关因素</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">A</td>
+<td style="text-align:left">Scsi层错误</td>
+<td style="text-align:center">32.78%</td>
+<td style="text-align:left">不可纠正错误。检测到固态硬盘的硬件错误，比如可能来自于DRAM的ECC错误。闪存容量：因为在实验中发现，当容量非常大时，替换率会有上升趋势，并且更严重的A类故障占比上升，同时影响较小的D类故障也会上升。</td>
+<td>闪存容量：当闪存容量非常大时，整体替换率更高。猜测会是cell之间的干扰变大。</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:left">设备无响应</td>
+<td style="text-align:center">0.60%</td>
+<td style="text-align:left">完全物理故障，无法响应。物理因素：由于占比相当小，可以认为是偶然事件，可能与物理碰撞等导致的线路故障有关。</td>
+<td>闪存类型：在实验中，3D-TLC和MLCe在其他因素的对比实验中，差异明显。</td>
+</tr>
+<tr>
+<td style="text-align:center">B</td>
+<td style="text-align:left">写丢失</td>
+<td style="text-align:center">13.54%</td>
+<td style="text-align:left">可能是固件发生了错误，导致例如没有执行写入或是写入错误位置。也很有可能是命令下传时的信道出现了错误，导致SSD无法接收到有效命令。</td>
+<td>制程：从实验中发现，制程的密度不同，显著影响了替换率。但是表现在3D-TLC和eMLC上并不相同，甚至是相反的。</td>
+</tr>
+<tr>
+<td style="text-align:center">C</td>
+<td style="text-align:left">命令中止</td>
+<td style="text-align:center">13.56%</td>
+<td style="text-align:left">可能是主机连接问题，导致数据实际没有到达设备</td>
+<td>固件版本：随着固件版本的更新，替换率有所下降。</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:left">磁盘权限I/O错误</td>
+<td style="text-align:center">3.27%</td>
+<td style="text-align:left">与拥有磁盘的子系统发生通信错误</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:left">命令超时</td>
+<td style="text-align:center">1.81%</td>
+<td style="text-align:left">计时器超时</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">D</td>
+<td style="text-align:left">预测故障</td>
+<td style="text-align:center">12.78%</td>
+<td style="text-align:left">根据预测模型判断即将发生错误</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:left">阈值超过</td>
+<td style="text-align:center">12.73%</td>
+<td style="text-align:left">跟踪的参数超过阈值</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:left">建议更换</td>
+<td style="text-align:center">8.93%</td>
+<td style="text-align:left">有系统给出的建议报告</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="数据中心环境"><a href="#数据中心环境" class="headerlink" title="数据中心环境"></a>数据中心环境</h1><h2 id="主要研究方向"><a href="#主要研究方向" class="headerlink" title="主要研究方向"></a>主要研究方向</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">错误关注点</th>
+<th style="text-align:left">相关影响较大因素</th>
+<th style="text-align:center">相关影响较小因素</th>
+<th style="text-align:left">相关体现因素</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">AFR(年替换率)</td>
+<td style="text-align:left"><font color="#dd0000">主机写入量及写放大</font>：对设备的写入量会直接影响P/E周期，从实验结果看，确实对年替换率有影响，但是视硬盘的型号而定。究其原因，应该是由于每个SSD内部的控制器管理算法不同。<font color="#dd0000">SSD空间利用率</font>：更高的空间利用率通常表示写入硬盘的有效数据更多，可用空间更少，因而导致更高的垃圾回收等，进一步影响磨损。<font color="#dd0000">工作负载</font>：在实验中发现，不同机架中的SSD故障特征有所差别。考虑到不同的机架除开位置环境因素，承载的应用类别可能是一大区别。因而工作负载会是一个重要的因素。</td>
+<td style="text-align:center"><font color="#dd0000">主机读取量</font>：研究了每日平均读取量和固态硬盘AFR之间的关系。数据没有显示固态硬盘AFR和这些设备的数据之间有多大关联。猜测可能原本读取就对于故障影响不大或者说是平均的读取量不够科学，存在短时间密集读取，但是平均读取较低的情况。<font color="#dd0000">内存和CPU利用率</font>：从统计的结果中没有看到大的统计学意义来得出结论。</td>
+<td style="text-align:left"><font color="#dd0000">重分配扇区数量</font>：重分配扇区数量的增加，会导致保留空间的减少。虽然不会立即导致故障，但可能对寿命产生长期影响。从实验数据来看，有增加症状的设备替换率比没有症状的设备高4倍左右。<font color="#dd0000">P/E失效次数</font>：P/E失效次数可以级联到重分配扇区的影响。从实验数据来看，有增加症状的设备替换率比没有症状的设备高3倍左右。<font color="#dd0000">数据错误次数</font>：包含可纠正和不可纠正的数据位错误。数据错误的次数增加，原本就是SSD不可靠的表现。从实验数据来看，有增加症状的设备替换率比没有症状的设备高近20倍。<font color="#dd0000">Sata信令速度下降</font>：速度降档的原因，可能是介质的暂时干扰或是永久性问题。从实验数据来看，有增加症状的设备替换率比没有症状的设备高3倍左右。</td>
+</tr>
+<tr>
+<td style="text-align:center">RBER（原始误码率）</td>
+<td style="text-align:left"><font color="#dd0000">年龄</font>：这里的年龄是指SSD上线时间，而不是指P/E周期。因为在实验中发现，对P/E周期进行测试时，不同的SSD差异较大，并未有统一规律。当然不排除厂家生产质量不同。但是实验却发现新老SSD在所有P/E周期内差别都较大。说明有着其他的老化因素，比如硅老化。<font color="#dd0000">制程</font>：从实验来看，制程小的普遍出错率高些。猜测可能是因为制程越小，每个 Cell 的空间越小，其能存储的电子数量越小，电子的量子隧穿效应影响变大。</td>
+<td style="text-align:center"><font color="#dd0000">P/E周期</font>：从实验结果来看，同类型的不同厂家情况有较大的不同，并且整体曲线较为平坦，即使超过厂家给出的极限值，也说明厂家给出的极限P/E值较为保守。<font color="#dd0000">工作负载</font>：当控制PE周期和读取操作时，RBER操作与写入和擦除操作之间的相关性并不显著。另一方面，没有证据表明写干扰和不完全擦除操作对RBER有显著影响。猜测RBER与SSD本身的关联性以及环境事件的关系更大，因为造成RBER的原因应该是来源于物理介质。<font color="#dd0000">其他错误</font>：虽然RBER在前一个月经历的非常能预测未来的RBER，但无法校正的误差和RBER之间没有显著的相关性。</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:center">UBER（不可纠正错误）</td>
+<td style="text-align:left"><font color="#dd0000">制程</font>：从实验看，制程对于UBER的影响比RBER要小。其他类型错误：从实验结果看，发生过其他错误都会导致UBER发生的几率变高。猜测错误的产生一定程度上可以指示此时SSD的可靠性已经出现了问题。<font color="#dd0000">容量</font>：就写入量而言，容量较大的SSD，生命周期普遍延长。猜测是因为大容量SSD在平均磨损方面具有更大的灵活性。<font color="#dd0000">温度</font>：通常情况下，温度的升高会导致故障率的升高，但是由于不同的SSD的控温节流机制，需要视具体类型而定。<font color="#dd0000">总线功率</font>：从实验结果来看，和温度的影响十分类似。更高的总线功耗是由于传输更多的数据，而传输更多的数据需要更多的功率来读取或写入固态硬盘，这反过来又会提高固态硬盘的温度。</td>
+<td style="text-align:center"><font color="#dd0000">P/E周期</font>：概率随着年龄的增长而不断增加。然而，与RBER的情况一样，增长速度比通常假设的要慢。说明P/E周期并不关键。<font color="#dd0000">工作负载</font>：发现用户设备和读取操作次数之间没有相关性。对写入和擦除操作重复了相同的分析，再次发现没有相关性。和RBER相同，猜测是统计数据不科学。<font color="#dd0000">丢弃块数</font>：观察到固态硬盘在其整个生命周期内(通过闪存单元读写来衡量)的低使用率和高使用率都丢弃了大量数据块。<font color="#dd0000">DRAM的使用</font>：不同平台对于DRAM使用的结果差异较大。猜测还是由于内部控制器缓冲算法不同导致。<font color="#dd0000">系统报告写入</font>：该因素收到的其他影响较大，需要考虑缓冲的大小和算法，因而无法体现出规律。</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:center">相关故障</td>
+<td style="text-align:left"><font color="#dd0000">SSD类型</font>：从实验来看，节点内和机架内故障的相对百分比因设备型号而异。同时，对于大多数设备型号，存在不可忽略的节点内和机架内故障，故障时间间隔很短。<font color="#dd0000">制程</font>：从实验看，对于MLC来说，较小的制程通常有着较低的相关故障率。这与之前的RBER观察到的现象不同，或许也和不同厂家有关。<font color="#dd0000">年龄（上线时间）</font>：节点内和机架内故障的相对百分比随着年龄的增长而增加。由于使用的额定寿命越来越长，较老的节点内和机架内故障更有可能在短时间内发生。<font color="#dd0000">工作负载</font>：从实验结果来看，每个节点(机架)具有更多固态硬盘且写入占主导地位的工作负载的应用程序往往具有很高的节点内(机架内)故障百分比。</td>
+<td style="text-align:center"><font color="#dd0000">容量</font>：节点内和机架内故障的相对百分比因容量而异。对于不同的故障时间间隔阈值和容量，节点内(或机架内)故障的相对百分比之间没有明显的趋势。<font color="#dd0000">SMART属性</font>：SMART属性与节点内和机架内故障的相关性有限，节点内和机架内故障的最高SRCC值(来自S187)仅为0.23。因此，SMART属性不是检测节点内和机架内故障的良好指标。<font color="#00dddd">推测是收集到的SMART属性不够准确导致。</font></td>
+</tr>
+</tbody>
+</table>
+<h2 id="总结可能相关因素"><a href="#总结可能相关因素" class="headerlink" title="总结可能相关因素"></a>总结可能相关因素</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">因素</th>
+<th style="text-align:center">分析</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><font color="#dd0000">年龄</font></td>
+<td style="text-align:center">从很多文章中的实验分析来看，与SSD故障相关的多为上线时间，而不是P/E周期。对此的猜测就是存在与SSD工作无关的磨损，比如说硅材质原本的随着时间迁移发生的变质。</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color="#dd0000">SSD类型</font></td>
+<td style="text-align:center">当前已有的工作表明，很多的因素在进行对比时和SSD类型的关系很大，不同的类型往往表现出不同的结果。说明不同类型的SSD其内部的构造对于故障的影响还是相当大的，或许需要分离考虑。尤其是3D架构。</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color="#dd0000">温度</font></td>
+<td style="text-align:center">从目前的实验结果来看，温度是影响最大的外部因素。这主要是由于阿伦尼乌斯效应带来的影响，较高的温度会导致cell老化加快。</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color="#dd0000">制程</font></td>
+<td style="text-align:center">制程也是对于故障影响比较大的外部因素。但是从之前的研究来看，存在前后矛盾的地方。猜测这可能是因为归类角度和比较方式不同带来的结果。从数据来看，制程显然是有所影响的。</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color="#dd0000">工作负载</font></td>
+<td style="text-align:center">工作负载决定最终SSD需要经历的写入和读取。从现有研究看，写入的影响比读取要大，但是并没有呈现出一个稳定的趋势。但是对于工作负载来说，写入密集型带来的故障提升还是更大。</td>
+</tr>
+<tr>
+<td style="text-align:center"><font color="#00dddd">写入读取密度</font></td>
+<td style="text-align:center">在之前的研究中，均未提到这个点。考虑到大规模场景下的故障情况之所以会和实验室场景产生如此大的差别，这二者最终的区别还是对于SSD的写入读取操作密度不同。一块SSD可能有时密集写，有时偶尔写。这样的变化对于SSD的磨损影响，目前还未知。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="一些其余错误（smart识别）所占的百分比"><a href="#一些其余错误（smart识别）所占的百分比" class="headerlink" title="一些其余错误（smart识别）所占的百分比"></a>一些其余错误（smart识别）所占的百分比</h2><p><img src="https://upload-images.jianshu.io/upload_images/26768472-675ce076d47b2640.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/26768472-0fd55ee7aaae7563.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>correctable error: 在当天的读取操作期间，发现损坏并使用设备内部纠错码(ECC)纠正的错误。<br><br>erase error: 失败的擦除操作数。<br><br>final read error: 失败的读取操作数，即使是在(设备启动)重试之后。<br><br>final write error: 失败的写入操作数，即使是在(设备启动)重试之后。<br><br>meta error:读取设备内部元数据时遇到的错误数。<br><br>read error: 经历错误但重试成功(由设备内部发起)的读取操作数。<br><br>response error: 来自设备的错误响应数。<br><br>timeout error: 等待一段时间后超时的操作数。<br><br>uncorrectable error: 当天读取操作期间遇到的不可纠正的ECC错误数。<br><br>write error: 经历错误但重试成功(由设备内部发起)的写入操作数。<br></p>
+
       
     </div>
     
@@ -447,8 +599,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -534,6 +695,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#企业存储环境"><span class="nav-number">1.</span> <span class="nav-text">企业存储环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据中心环境"><span class="nav-number">2.</span> <span class="nav-text">数据中心环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要研究方向"><span class="nav-number">2.1.</span> <span class="nav-text">主要研究方向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结可能相关因素"><span class="nav-number">2.2.</span> <span class="nav-text">总结可能相关因素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些其余错误（smart识别）所占的百分比"><span class="nav-number">2.3.</span> <span class="nav-text">一些其余错误（smart识别）所占的百分比</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
