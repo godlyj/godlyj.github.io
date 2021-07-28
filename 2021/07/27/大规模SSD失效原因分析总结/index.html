@@ -120,18 +120,18 @@
 
 <meta name="description" content="企业存储环境    错误等级 错误类别 占比 可能错误相关原因 整体替换相关因素     A Scsi层错误 32.78% 不可纠正错误。检测到固态硬盘的硬件错误，比如可能来自于DRAM的ECC错误。闪存容量：因为在实验中发现，当容量非常大时，替换率会有上升趋势，并且更严重的A类故障占比上升，同时影响较小的D类故障也会上升。 闪存容量：当闪存容量非常大时，整体替换率更高。猜测会是cell之间的干扰">
 <meta property="og:type" content="article">
-<meta property="og:title" content="不 是我">
+<meta property="og:title" content="大规模SSD失效原因分析总结">
 <meta property="og:url" content="http://yoursite.com/2021/07/27/大规模SSD失效原因分析总结/index.html">
 <meta property="og:site_name" content="不 是我">
 <meta property="og:description" content="企业存储环境    错误等级 错误类别 占比 可能错误相关原因 整体替换相关因素     A Scsi层错误 32.78% 不可纠正错误。检测到固态硬盘的硬件错误，比如可能来自于DRAM的ECC错误。闪存容量：因为在实验中发现，当容量非常大时，替换率会有上升趋势，并且更严重的A类故障占比上升，同时影响较小的D类故障也会上升。 闪存容量：当闪存容量非常大时，整体替换率更高。猜测会是cell之间的干扰">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/26768472-675ce076d47b2640.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/26768472-0fd55ee7aaae7563.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2021-07-28T02:32:43.591Z">
+<meta property="og:image" content="https://i.loli.net/2021/07/28/Gdnv2K1T85pcoUe.png">
+<meta property="og:image" content="https://i.loli.net/2021/07/28/xp7UaBuHEklv1j5.png">
+<meta property="og:updated_time" content="2021-07-28T02:49:53.450Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="不 是我">
+<meta name="twitter:title" content="大规模SSD失效原因分析总结">
 <meta name="twitter:description" content="企业存储环境    错误等级 错误类别 占比 可能错误相关原因 整体替换相关因素     A Scsi层错误 32.78% 不可纠正错误。检测到固态硬盘的硬件错误，比如可能来自于DRAM的ECC错误。闪存容量：因为在实验中发现，当容量非常大时，替换率会有上升趋势，并且更严重的A类故障占比上升，同时影响较小的D类故障也会上升。 闪存容量：当闪存容量非常大时，整体替换率更高。猜测会是cell之间的干扰">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/26768472-675ce076d47b2640.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="https://i.loli.net/2021/07/28/Gdnv2K1T85pcoUe.png">
 
 
 
@@ -167,7 +167,7 @@
 
 
 
-  <title> | 不 是我</title>
+  <title>大规模SSD失效原因分析总结 | 不 是我</title>
   
 
 
@@ -311,7 +311,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">大规模SSD失效原因分析总结</h1>
         
 
         <div class="post-meta">
@@ -507,8 +507,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="一些其余错误（smart识别）所占的百分比"><a href="#一些其余错误（smart识别）所占的百分比" class="headerlink" title="一些其余错误（smart识别）所占的百分比"></a>一些其余错误（smart识别）所占的百分比</h2><p><img src="https://upload-images.jianshu.io/upload_images/26768472-675ce076d47b2640.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<p><img src="https://upload-images.jianshu.io/upload_images/26768472-0fd55ee7aaae7563.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h2 id="一些其余错误（smart识别）所占的百分比"><a href="#一些其余错误（smart识别）所占的百分比" class="headerlink" title="一些其余错误（smart识别）所占的百分比"></a>一些其余错误（smart识别）所占的百分比</h2><p><img src="https://i.loli.net/2021/07/28/Gdnv2K1T85pcoUe.png" alt="图片1.png"></p>
+<p><img src="https://i.loli.net/2021/07/28/xp7UaBuHEklv1j5.png" alt="图片2.png"></p>
 <p>correctable error: 在当天的读取操作期间，发现损坏并使用设备内部纠错码(ECC)纠正的错误。<br><br>erase error: 失败的擦除操作数。<br><br>final read error: 失败的读取操作数，即使是在(设备启动)重试之后。<br><br>final write error: 失败的写入操作数，即使是在(设备启动)重试之后。<br><br>meta error:读取设备内部元数据时遇到的错误数。<br><br>read error: 经历错误但重试成功(由设备内部发起)的读取操作数。<br><br>response error: 来自设备的错误响应数。<br><br>timeout error: 等待一段时间后超时的操作数。<br><br>uncorrectable error: 当天读取操作期间遇到的不可纠正的ECC错误数。<br><br>write error: 经历错误但重试成功(由设备内部发起)的写入操作数。<br></p>
 
       
