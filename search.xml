@@ -1,73 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>经典算法问题 - 最大连续子数列和</title>
-    <url>/2021/07/27/%E6%9C%80%E5%A4%A7%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97/</url>
-    <content><![CDATA[<p><font size="6">最大连续子数列和</font>一道很经典的算法问题，给定一个数列，其中可能有正数也可能有负数，我们的任务是找出其中连续的一个子数列（不允许空序列），使它们的和尽可能大。我们一起用多种方式，逐步优化解决这个问题。</p>
-<p>为了更清晰的理解问题，首先我们先看一组数据：<br>8<br>-2 6 -1 5 4 -7 2 3<br>第一行的8是说序列的长度是8，然后第二行有8个数字，即待计算的序列。<br>对于这个序列，我们的答案应该是14，所选的数列是从第2个数到第5个数，这4个数的和是所有子数列中最大的。<br><a id="more"></a><br><strong>最暴力的做法，复杂度O(N^3)</strong><br>暴力求解也是容易理解的做法，简单来说，我们只要用两层循环枚举起点和终点，这样就尝试了所有的子序列，然后计算每个子序列的和，然后找到其中最大的即可，C语言代码如下：</p>
-<pre><code>#include &lt;stdio.h&gt;
-
-//N是数组长度，num是待计算的数组，放在全局区是因为可以开很大的数组
-int N, num[1024];
-
-int main()
-{
-//输入数据
-scanf(&quot;%d&quot;, &amp;N);
-for(int i = 1; i &lt;= N; i++)
-scanf(&quot;%d&quot;, &amp;num[i]);
-
-int ans = num[1]; //ans保存最大子序列和，初始化为num[1]能保证最终结果正确
-//i和j分别是枚举的子序列的起点和终点，k所在循环计算每个子序列的和
-for(int i = 1; i &lt;= N; i++) {
-for(int j = i; j &lt;= N; j++) {
-int s = 0;
-for(int k = i; k &lt;= j; k++) {
-s += num[k];
-}
-if(s &gt; ans) ans = s;
-}
-}
-printf(&quot;%d\n&quot;, ans);
-
-return 0;
-}
-</code></pre><p>这个算法的时间复杂度是O(N^3)，复杂度的计算方法可参考《算法导论》第一章，如果我们的计算机可以每秒计算一亿次的话，这个算法在一秒内只能计算出500左右长度序列的答案。</p>
-<p><strong>动态规划的魅力，O(N)解决！</strong><br>很多动态规划算法非常像数学中的递推。我们如果能找到一个合适的递推公式，就能很容易的解决问题。<br>我们用dp[n]表示以第n个数结尾的最大连续子序列的和，于是存在以下递推公式：<br>dp[n] = max(0, dp[n-1]) + num[n]<br>仔细思考后不难发现这个递推公式是正确的，则整个问题的答案是max(dp[m]) | m∈[1, N]。C语言代码如下：</p>
-<pre><code>#include &lt;stdio.h&gt;
-
-//N是数组长度，num是待计算的数组，放在全局区是因为可以开很大的数组
-int N, num[134217728];
-
-int main()
-{
-//输入数据
-scanf(&quot;%d&quot;, &amp;N);
-for(int i = 1; i &lt;= N; i++)
-scanf(&quot;%d&quot;, &amp;num[i]);
-
-num[0] = 0;
-int ans = num[1];
-for(int i = 1; i &lt;= N; i++) {
-if(num[i - 1] &gt; 0) num[i] += num[i - 1];
-else num[i] += 0;
-if(num[i] &gt; ans) ans = num[i];
-}
-
-printf(&quot;%d\n&quot;, ans);
-
-return 0;
-}
-</code></pre><p>文章来自：<a href="http://conw.net/archives/9/" target="_blank" rel="noopener">http://conw.net/archives/9/</a></p>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>Testing</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>大规模SSD失效原因分析总结</title>
     <url>/2021/07/27/%E5%A4%A7%E8%A7%84%E6%A8%A1SSD%E5%A4%B1%E6%95%88%E5%8E%9F%E5%9B%A0%E5%88%86%E6%9E%90%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h1 id="企业存储环境"><a href="#企业存储环境" class="headerlink" title="企业存储环境"></a>企业存储环境</h1><hr>
@@ -228,6 +161,17 @@ return 0;
       </tags>
   </entry>
   <entry>
+    <title>Hexo文章简单加密访问</title>
+    <url>/2021/07/27/%E6%96%B0%E6%96%87%E6%A1%A3/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>Data Structure</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>栈与递归（C语言实现）</title>
     <url>/2021/07/27/%E6%A0%88%E4%B8%8E%E9%80%92%E5%BD%92/</url>
     <content><![CDATA[<p>我们已经知道了栈的定义以及有了对栈的基本应用，我们现在就要进一步对栈的应用有更深入的了解。</p>
@@ -272,14 +216,70 @@ int ack(int m,int n)
       </tags>
   </entry>
   <entry>
-    <title>Hexo文章简单加密访问</title>
-    <url>/2021/07/27/%E6%96%B0%E6%96%87%E6%A1%A3/</url>
-    <content><![CDATA[]]></content>
+    <title>经典算法问题 - 最大连续子数列和</title>
+    <url>/2021/07/27/%E6%9C%80%E5%A4%A7%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97/</url>
+    <content><![CDATA[<p><font size="6">最大连续子数列和</font>一道很经典的算法问题，给定一个数列，其中可能有正数也可能有负数，我们的任务是找出其中连续的一个子数列（不允许空序列），使它们的和尽可能大。我们一起用多种方式，逐步优化解决这个问题。</p>
+<p>为了更清晰的理解问题，首先我们先看一组数据：<br>8<br>-2 6 -1 5 4 -7 2 3<br>第一行的8是说序列的长度是8，然后第二行有8个数字，即待计算的序列。<br>对于这个序列，我们的答案应该是14，所选的数列是从第2个数到第5个数，这4个数的和是所有子数列中最大的。<br><a id="more"></a><br><strong>最暴力的做法，复杂度O(N^3)</strong><br>暴力求解也是容易理解的做法，简单来说，我们只要用两层循环枚举起点和终点，这样就尝试了所有的子序列，然后计算每个子序列的和，然后找到其中最大的即可，C语言代码如下：</p>
+<pre><code>#include &lt;stdio.h&gt;
+
+//N是数组长度，num是待计算的数组，放在全局区是因为可以开很大的数组
+int N, num[1024];
+
+int main()
+{
+//输入数据
+scanf(&quot;%d&quot;, &amp;N);
+for(int i = 1; i &lt;= N; i++)
+scanf(&quot;%d&quot;, &amp;num[i]);
+
+int ans = num[1]; //ans保存最大子序列和，初始化为num[1]能保证最终结果正确
+//i和j分别是枚举的子序列的起点和终点，k所在循环计算每个子序列的和
+for(int i = 1; i &lt;= N; i++) {
+for(int j = i; j &lt;= N; j++) {
+int s = 0;
+for(int k = i; k &lt;= j; k++) {
+s += num[k];
+}
+if(s &gt; ans) ans = s;
+}
+}
+printf(&quot;%d\n&quot;, ans);
+
+return 0;
+}
+</code></pre><p>这个算法的时间复杂度是O(N^3)，复杂度的计算方法可参考《算法导论》第一章，如果我们的计算机可以每秒计算一亿次的话，这个算法在一秒内只能计算出500左右长度序列的答案。</p>
+<p><strong>动态规划的魅力，O(N)解决！</strong><br>很多动态规划算法非常像数学中的递推。我们如果能找到一个合适的递推公式，就能很容易的解决问题。<br>我们用dp[n]表示以第n个数结尾的最大连续子序列的和，于是存在以下递推公式：<br>dp[n] = max(0, dp[n-1]) + num[n]<br>仔细思考后不难发现这个递推公式是正确的，则整个问题的答案是max(dp[m]) | m∈[1, N]。C语言代码如下：</p>
+<pre><code>#include &lt;stdio.h&gt;
+
+//N是数组长度，num是待计算的数组，放在全局区是因为可以开很大的数组
+int N, num[134217728];
+
+int main()
+{
+//输入数据
+scanf(&quot;%d&quot;, &amp;N);
+for(int i = 1; i &lt;= N; i++)
+scanf(&quot;%d&quot;, &amp;num[i]);
+
+num[0] = 0;
+int ans = num[1];
+for(int i = 1; i &lt;= N; i++) {
+if(num[i - 1] &gt; 0) num[i] += num[i - 1];
+else num[i] += 0;
+if(num[i] &gt; ans) ans = num[i];
+}
+
+printf(&quot;%d\n&quot;, ans);
+
+return 0;
+}
+</code></pre><p>文章来自：<a href="http://conw.net/archives/9/" target="_blank" rel="noopener">http://conw.net/archives/9/</a></p>
+]]></content>
       <categories>
-        <category>数据结构</category>
+        <category>算法</category>
       </categories>
       <tags>
-        <tag>Data Structure</tag>
+        <tag>Testing</tag>
       </tags>
   </entry>
   <entry>
@@ -399,6 +399,54 @@ int Pop(DqStack *S, StackElementType *x, int i)
          return(TRUE); 
 } 
 </code></pre><p>其实和之前的顺序结构差不多，操作的重点依旧在于对于top指针的理解与判断。</p>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>Data Structure</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>栈的链式结构（C语言实现）</title>
+    <url>/2021/07/27/%E6%A0%88%E7%9A%84%E9%93%BE%E5%BC%8F%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<p>是不是很奇怪，和线性表不同，栈的运算方向是确定的那为什么还要区分顺序结构和链式结构呢。其实这是从内存来考虑的。采用链栈不必预先估计栈的最大容量，只要系统有可用空间，链栈就不会出现溢出。采用链栈时，栈的各种基本操作的实现与单链表的操作类似，对于链栈，在使用完毕时，应该释放其空间。</p>
+<p>链栈的结构可用 C 语言定义如下：</p>
+<pre><code>typedef struct node 
+{ 
+    StackElementType  data;           
+    struct node   *next; 
+}LinkStackNode; 
+
+typedef  LinkStackNode  *LinkStack; 
+</code></pre><p>关于链栈的初始化，其实可以参考之前线性表的链式结构，区别不大。至于存入和弹出的操作，由于涉及指针操作，和顺序结构还是有很大不同的。不过理解的要点还是一样，就是考虑top指针的位置以及指向。（个人的理解是把top指针理解为线性表的头指针差不多）</p>
+<pre><code>//进栈操作 
+int Push(LinkStack top, StackElementType x) 
+/* 将数据元素 x 压入栈 top 中 */   
+{ 
+    LinkStackNode * temp; 
+    temp=(LinkStackNode * )malloc(sizeof(LinkStackNode));  
+    if(temp==NULL)  
+          return(FALSE);   /* 申请空间失败 */  
+    temp-&gt;data=x;
+    temp-&gt;next=top-&gt;next; 
+    top-&gt;next=temp;   /* 修改当前栈顶指针 */  
+    return(TRUE); 
+} 
+
+//出栈操作 
+int Pop(LinkStack top, StackElementType *x) 
+{  /* 将栈 top 的栈顶元素弹出，放到 x 所指的存储空间中 */ 
+      LinkStackNode * temp;
+      temp=top-&gt;next; 
+      if(temp==NULL)  /*栈为空*/      
+         return(FALSE); 
+      top-&gt;next=temp-&gt;next; 
+      *x=temp-&gt;data; 
+       free(temp);   /* 释放存储空间 */ 
+      return(TRUE); 
+} 
+</code></pre><p>如果要操作多栈，其实只需要搞一个指针数组，然后每个格子里装一个栈的top指针就可以了。</p>
 ]]></content>
       <categories>
         <category>数据结构</category>
@@ -530,45 +578,37 @@ OPS为运算符集合*/
       </tags>
   </entry>
   <entry>
-    <title>栈的链式结构（C语言实现）</title>
-    <url>/2021/07/27/%E6%A0%88%E7%9A%84%E9%93%BE%E5%BC%8F%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<p>是不是很奇怪，和线性表不同，栈的运算方向是确定的那为什么还要区分顺序结构和链式结构呢。其实这是从内存来考虑的。采用链栈不必预先估计栈的最大容量，只要系统有可用空间，链栈就不会出现溢出。采用链栈时，栈的各种基本操作的实现与单链表的操作类似，对于链栈，在使用完毕时，应该释放其空间。</p>
-<p>链栈的结构可用 C 语言定义如下：</p>
-<pre><code>typedef struct node 
-{ 
-    StackElementType  data;           
-    struct node   *next; 
-}LinkStackNode; 
-
-typedef  LinkStackNode  *LinkStack; 
-</code></pre><p>关于链栈的初始化，其实可以参考之前线性表的链式结构，区别不大。至于存入和弹出的操作，由于涉及指针操作，和顺序结构还是有很大不同的。不过理解的要点还是一样，就是考虑top指针的位置以及指向。（个人的理解是把top指针理解为线性表的头指针差不多）</p>
-<pre><code>//进栈操作 
-int Push(LinkStack top, StackElementType x) 
-/* 将数据元素 x 压入栈 top 中 */   
-{ 
-    LinkStackNode * temp; 
-    temp=(LinkStackNode * )malloc(sizeof(LinkStackNode));  
-    if(temp==NULL)  
-          return(FALSE);   /* 申请空间失败 */  
-    temp-&gt;data=x;
-    temp-&gt;next=top-&gt;next; 
-    top-&gt;next=temp;   /* 修改当前栈顶指针 */  
-    return(TRUE); 
-} 
-
-//出栈操作 
-int Pop(LinkStack top, StackElementType *x) 
-{  /* 将栈 top 的栈顶元素弹出，放到 x 所指的存储空间中 */ 
-      LinkStackNode * temp;
-      temp=top-&gt;next; 
-      if(temp==NULL)  /*栈为空*/      
-         return(FALSE); 
-      top-&gt;next=temp-&gt;next; 
-      *x=temp-&gt;data; 
-       free(temp);   /* 释放存储空间 */ 
-      return(TRUE); 
-} 
-</code></pre><p>如果要操作多栈，其实只需要搞一个指针数组，然后每个格子里装一个栈的top指针就可以了。</p>
+    <title>线性表（三）--链式结构实践 （C语言实现）</title>
+    <url>/2021/07/27/%E7%BA%BF%E6%80%A7%E8%A1%A8%EF%BC%88%E4%B8%89%EF%BC%89--%E9%93%BE%E5%BC%8F%E7%BB%93%E6%9E%84%E5%AE%9E%E8%B7%B5/</url>
+    <content><![CDATA[<p>怎么说呢，这一节是对上一节的补充，毕竟上一节只对定义以及概念进行了讲解，可能还会有些不太熟练，这一节之后，相信会对链式结构有更深入的理解，至少lyjgod是这样的。真的很感谢耿国华老师的课程，受益匪浅。</p>
+<p>那么，要讲些什么呢，来试着求一求<strong>两个集合的差</strong>。<br>由集合运算的规则可知，集合的差 A-B 中包含所有属于集合 A 而不 属于集合 B 的元素。 因此，这需要我们逐个读取集合 A 的链表 LA 中每个元素，在集合 B 的链表 LB 中进行查找，若存在 相同的元素，则从链表 LA 中将其删除。 </p>
+<p>也就是说，可以进行这样的操作：<br>1、指针 pre 指向单链表 LA, 指针 p 指向单链表 LA 的首元结点;<br>2、指针 q 指向单链表 LB 的首元结点；随后逐一访问单链表 LB 中结点，将 其与单链表 LA 中 p 指针指向的结点进行比较，如果两者相同，则删除 p 所 指向的结点，直到读完表 LB 为止。<br><a id="more"></a><br>那么来贴出代码：</p>
+<pre><code>void Difference(LinkList La,LinkList Lb)
+{
+    Node *pre,*p,*q,*r;
+    pre=La;p=La-&gt;next;
+    while(p!=Null)//这是按链表去除集合A中的元素
+    {
+        q=Lb-&gt;next;
+        while(q!Null&amp;&amp;q-&gt;date!=p-&gt;date)//遍历集合B,观察是否在B中存在与该A元素相同的元素
+           q=q-&gt;next;//如果没有则继续遍历B集合，如果有则已经跳出while循环
+        if(q!=Null)//存在满足要求的结点，进行删除的操作
+        {
+            r=p;
+            pre-&gt;next=p-&gt;next;
+            p=p-&gt;next;
+            free(r);
+        }
+        else//不存在满足要求的结点，继续遍历A集合
+        {
+            pre=p;
+            p=p-&gt;next;
+        }
+   }
+}
+</code></pre><p>那么至此，我们已经将链式结构的基础学习完毕了，总结一下把。<br>进行链式操作。我们要注意以下几点：<br>1、访问单链表中第i个结点或者是值为e的结点时，必须从头开始，这个我在之前也提到过。<br>2、千万要注意头结点和尾节点的设置，不然，是要出事情滴。<br>3、在操作单链表的时候，要注意前后结点的关系，在进行插入删除操作的同时要注意前后结点指针的保留。</p>
+<p>学完了链式结构。。。莫名很开心。<br><img src="https://i.loli.net/2018/07/29/5b5d76054c45b.jpg" alt></p>
+<p><strong>PS:本人比图片帅气得多，只是烘托气氛！！</strong></p>
 ]]></content>
       <categories>
         <category>数据结构</category>
@@ -679,37 +719,44 @@ for(k=i;i&lt;=L-&gt;last;k++)
       </tags>
   </entry>
   <entry>
-    <title>线性表（三）--链式结构实践 （C语言实现）</title>
-    <url>/2021/07/27/%E7%BA%BF%E6%80%A7%E8%A1%A8%EF%BC%88%E4%B8%89%EF%BC%89--%E9%93%BE%E5%BC%8F%E7%BB%93%E6%9E%84%E5%AE%9E%E8%B7%B5/</url>
-    <content><![CDATA[<p>怎么说呢，这一节是对上一节的补充，毕竟上一节只对定义以及概念进行了讲解，可能还会有些不太熟练，这一节之后，相信会对链式结构有更深入的理解，至少lyjgod是这样的。真的很感谢耿国华老师的课程，受益匪浅。</p>
-<p>那么，要讲些什么呢，来试着求一求<strong>两个集合的差</strong>。<br>由集合运算的规则可知，集合的差 A-B 中包含所有属于集合 A 而不 属于集合 B 的元素。 因此，这需要我们逐个读取集合 A 的链表 LA 中每个元素，在集合 B 的链表 LB 中进行查找，若存在 相同的元素，则从链表 LA 中将其删除。 </p>
-<p>也就是说，可以进行这样的操作：<br>1、指针 pre 指向单链表 LA, 指针 p 指向单链表 LA 的首元结点;<br>2、指针 q 指向单链表 LB 的首元结点；随后逐一访问单链表 LB 中结点，将 其与单链表 LA 中 p 指针指向的结点进行比较，如果两者相同，则删除 p 所 指向的结点，直到读完表 LB 为止。<br><a id="more"></a><br>那么来贴出代码：</p>
-<pre><code>void Difference(LinkList La,LinkList Lb)
+    <title>线性表（五）--双向链表以及静态链表 （C语言实现）</title>
+    <url>/2021/07/27/%E7%BA%BF%E6%80%A7%E8%A1%A8%EF%BC%88%E4%BA%94%EF%BC%89--%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<p>有了单向循环链表，我们路确定某一个结点的前趋，但是我们发现这需要遍历整个链表，如果希望从表中快速确定某一个结点的前趋，另一个解决方法就是在单链表的每个结点里再增加一个指向其前趋的指针域 prior。这样形成的链表中就有两条方向不同的链，就是<strong>双向链表</strong>。<br><img src="https://i.loli.net/2018/07/30/5b5ef6faddbb4.jpg" alt><br><a id="more"></a><br>与单向链表不同，双向链表有两个指针域。所以定义如下：</p>
+<pre><code>typedef struct DNode 
+{     
+   ElemType data； 
+   struct DNode *prior，*next； 
+}DNode,* DoubleList； 
+</code></pre><p>事实上，双向链表也是由头指针唯一确定的，因为增加头结点能使双链表的某些运算变得方便。在双向链表中，那些只涉及后继指针的算法，如求表长度、取元素、元素定位等，与单链表中相应的算法相同，但对于前插和删除操作则涉及到前驱和后继两个方向的指针变化，因此与单链表中的算法不同。</p>
+<p>先来看看插入操作。</p>
+<pre><code>在双向链表第 i 个结点之前插入一个的新的结点
+int DlinkIns(DoubleList L,int i,ElemType e) 
+{ 
+     DNode  *s,*p; 
+     … /*先检查待插入的位置i是否合法（实现方法同单链表的前插操作）*/ 
+     … /*若位置i合法，则找到第i个结点并让指针p指向它*/ 
+     s=(DNode*)malloc(sizeof(DNode)); 
+      if (s) 
+      { 
+         s-&gt;data=e;       
+         s-&gt;prior=p-&gt;prior;      ① 
+         p-&gt;prior-&gt;next=s;      ② 
+         s-&gt;next=p;           ③ 
+         p-&gt;prior=s;           ④ 
+         return TRUE; 
+      }  
+      else return FALSE; 
+} 
+</code></pre><p>对于删除，实际上和单链表没有区别。<br>同样的双向链表也存在循环链表，和单链表区别不大，就不再累述了。<br>其实对于链表来说，只要能在脑海中有示例图，理解了之后就可以很轻松的写出来。</p>
+<p>之前介绍的链表，其实都是动态的。那么什么是静态链表呢。静态链表其实是数组模拟实现的链表。<br>静态链表的基本特征：<br>1.存储池：定义一个较大的结构数组作为备用结点空间<br>2.游标机制：每个结点应含有两个域：data域和next（或cursor）域</p>
+<pre><code>#define  Maxsize  链表可能达到的最大长度 typedef  struct 
 {
-    Node *pre,*p,*q,*r;
-    pre=La;p=La-&gt;next;
-    while(p!=Null)//这是按链表去除集合A中的元素
-    {
-        q=Lb-&gt;next;
-        while(q!Null&amp;&amp;q-&gt;date!=p-&gt;date)//遍历集合B,观察是否在B中存在与该A元素相同的元素
-           q=q-&gt;next;//如果没有则继续遍历B集合，如果有则已经跳出while循环
-        if(q!=Null)//存在满足要求的结点，进行删除的操作
-        {
-            r=p;
-            pre-&gt;next=p-&gt;next;
-            p=p-&gt;next;
-            free(r);
-        }
-        else//不存在满足要求的结点，继续遍历A集合
-        {
-            pre=p;
-            p=p-&gt;next;
-        }
-   }
-}
-</code></pre><p>那么至此，我们已经将链式结构的基础学习完毕了，总结一下把。<br>进行链式操作。我们要注意以下几点：<br>1、访问单链表中第i个结点或者是值为e的结点时，必须从头开始，这个我在之前也提到过。<br>2、千万要注意头结点和尾节点的设置，不然，是要出事情滴。<br>3、在操作单链表的时候，要注意前后结点的关系，在进行插入删除操作的同时要注意前后结点指针的保留。</p>
-<p>学完了链式结构。。。莫名很开心。<br><img src="https://i.loli.net/2018/07/29/5b5d76054c45b.jpg" alt></p>
-<p><strong>PS:本人比图片帅气得多，只是烘托气氛！！</strong></p>
+    ElemType data;  
+    int cursor; 
+}Component, StaticList[Maxsize]; 
+</code></pre><p>对于静态链表的理解可能看了这幅图会好很多。</p>
+<p><img src="https://i.loli.net/2018/07/30/5b5efa29d1848.jpg" alt></p>
+<p>那么到这里线性表就结束了，没有六七八九。。。</p>
 ]]></content>
       <categories>
         <category>数据结构</category>
@@ -887,53 +934,6 @@ Node *Locate( LinkList L,ElemType key) / * 在带头结点的单链表 L 中查�
   return OK; 
 } 
 </code></pre><p>第一次写这样的文章，其实自己也在学习中，希望能够加深自己对于数据结构的理解。也可以分享自己的学习经验。继续努力吧！lyjgod！</p>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>Data Structure</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>线性表（五）--双向链表以及静态链表 （C语言实现）</title>
-    <url>/2021/07/27/%E7%BA%BF%E6%80%A7%E8%A1%A8%EF%BC%88%E4%BA%94%EF%BC%89--%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/</url>
-    <content><![CDATA[<p>有了单向循环链表，我们路确定某一个结点的前趋，但是我们发现这需要遍历整个链表，如果希望从表中快速确定某一个结点的前趋，另一个解决方法就是在单链表的每个结点里再增加一个指向其前趋的指针域 prior。这样形成的链表中就有两条方向不同的链，就是<strong>双向链表</strong>。<br><img src="https://i.loli.net/2018/07/30/5b5ef6faddbb4.jpg" alt><br><a id="more"></a><br>与单向链表不同，双向链表有两个指针域。所以定义如下：</p>
-<pre><code>typedef struct DNode 
-{     
-   ElemType data； 
-   struct DNode *prior，*next； 
-}DNode,* DoubleList； 
-</code></pre><p>事实上，双向链表也是由头指针唯一确定的，因为增加头结点能使双链表的某些运算变得方便。在双向链表中，那些只涉及后继指针的算法，如求表长度、取元素、元素定位等，与单链表中相应的算法相同，但对于前插和删除操作则涉及到前驱和后继两个方向的指针变化，因此与单链表中的算法不同。</p>
-<p>先来看看插入操作。</p>
-<pre><code>在双向链表第 i 个结点之前插入一个的新的结点
-int DlinkIns(DoubleList L,int i,ElemType e) 
-{ 
-     DNode  *s,*p; 
-     … /*先检查待插入的位置i是否合法（实现方法同单链表的前插操作）*/ 
-     … /*若位置i合法，则找到第i个结点并让指针p指向它*/ 
-     s=(DNode*)malloc(sizeof(DNode)); 
-      if (s) 
-      { 
-         s-&gt;data=e;       
-         s-&gt;prior=p-&gt;prior;      ① 
-         p-&gt;prior-&gt;next=s;      ② 
-         s-&gt;next=p;           ③ 
-         p-&gt;prior=s;           ④ 
-         return TRUE; 
-      }  
-      else return FALSE; 
-} 
-</code></pre><p>对于删除，实际上和单链表没有区别。<br>同样的双向链表也存在循环链表，和单链表区别不大，就不再累述了。<br>其实对于链表来说，只要能在脑海中有示例图，理解了之后就可以很轻松的写出来。</p>
-<p>之前介绍的链表，其实都是动态的。那么什么是静态链表呢。静态链表其实是数组模拟实现的链表。<br>静态链表的基本特征：<br>1.存储池：定义一个较大的结构数组作为备用结点空间<br>2.游标机制：每个结点应含有两个域：data域和next（或cursor）域</p>
-<pre><code>#define  Maxsize  链表可能达到的最大长度 typedef  struct 
-{
-    ElemType data;  
-    int cursor; 
-}Component, StaticList[Maxsize]; 
-</code></pre><p>对于静态链表的理解可能看了这幅图会好很多。</p>
-<p><img src="https://i.loli.net/2018/07/30/5b5efa29d1848.jpg" alt></p>
-<p>那么到这里线性表就结束了，没有六七八九。。。</p>
 ]]></content>
       <categories>
         <category>数据结构</category>
