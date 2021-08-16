@@ -23,50 +23,6 @@
       </tags>
   </entry>
   <entry>
-    <title>栈与递归（C语言实现）</title>
-    <url>/2021/07/27/%E6%A0%88%E4%B8%8E%E9%80%92%E5%BD%92/</url>
-    <content><![CDATA[<p>我们已经知道了栈的定义以及有了对栈的基本应用，我们现在就要进一步对栈的应用有更深入的了解。</p>
-<p>递归，就是在定义自身的同时又出现了对自身的调用。而递归又分为两种，直接和间接。直接是在定义函数体内直接调用自己，而间接则是经过一系列中间调用函数语句，通过其他函数间接调用自己。</p>
-<p><strong>事实上，递归的实现是在栈的基础上实现的。</strong>（这个事情之后会提）</p>
-<p>那么有哪些我们熟悉的递归呢？斐波那契数列肯定是我们会第一个想到的。其次是阿克曼函数，可能这个函数会有些生疏。</p>
-<pre><code>上述 Ackerman 函数可用一个简单的 C 语言函数描述如下： 
-int ack(int m,int n) 
-{  
-    if(m==0) 
-        return n+1;  
-    else if (n==0) 
-        return ack(m-1,1); 
-    else return ack(m-1, ack(m,n-1)); 
-} 
-</code></pre><a id="more"></a>
-<p>当然还要一个非常非常经典的题目，<strong>汉诺塔问题</strong>。<br>n阶Hanoi塔问题：假设有三个分别命名为X,Y和Z的塔座，在塔座X上插有n个直径大小各不相同、从小到大编号为1，2,… ，n的圆盘。现要求将塔座X上的n个圆盘移至塔座Z上，并仍按同样顺序叠排。圆盘移动时必须遵循下列规则：<br>①    每次只能移动一个圆盘；<br>②    圆盘可以插在X,Y和Z中的任何一个塔座上；<br>③    任何时刻都不能将一个较大的圆盘压在较小的圆盘之上。 </p>
-<p>当n=1时，问题比较简单，只要将编号为1的圆盘从座X直接移动到塔座Z上即可；当n&gt;1时，需利用塔座Y作辅助塔座，若能设法将压在编号为n的圆盘上的n-1个圆盘从塔座X(依照上述原则)移至塔座Y上，则可先将编号为n的圆盘从塔座X 移至塔座Z上，然后再将塔座Y上的n-1个圆盘(依照上述原则)移至塔座Z上。而如何将n-1个圆盘从一个塔座移至另一个塔座问题是一个和原问题具有相同特征属性的问题，只是问题的规模小于1，因此可以用同样方法求解。由此可得如下求解n阶Hanoi塔问题的递归算法</p>
-<pre><code>void hanoi(int n, char x, char y, char z) 
-/* 将塔座X上从上到下编号为1至n，且按直径由小到大叠放的n个圆盘，按规则搬到塔座Z上，Y用作辅助塔座。*/ 
-{ 
-   if(n==1) 
-     move(x,1,z); /*将编号为1的圆盘从x移动z*
-   else 
-   { 
-     hanoi(n-1,x,z,y);/* 将X上编号为1至n-1的圆盘移到y,z作辅助塔 */ 
-     move(x,n,z); /* 将编号为n的圆盘从x移到z */ 
-     hanoi(n-1, y,x ,z);  /* 将y上编号为1至n-1的圆盘移到z，x作辅助塔 */  
-   } 
-}  
-</code></pre><p>事实上，我们就可以得出一些递归问题算法的得出规律。<br>使用递归算法的前提有两个：<br>⑴原问题可以层层分解为类似的的子问题，且子问题比原问题的规模更小。<br>⑵规模最小的子问题具有直接解。</p>
-<p>设计递归算法的方法是：<br>⑴寻找分解方法：将原问题转化为子问题求解。（ 例：n!=n*(n-1)! ）<br>⑵设计递归出口：即根据规模最小的子问题，确定递归终止条件。（例：求解 n!时，当 n=1 时，n!=1）。</p>
-<p>那么在递归实现的时候都发生了些什么呢？<br>递归过程的实现递归进层（i→i +1 层）系统需要做三件事：<br>⑴    保留本层参数与返回地址；<br>⑵    为被调用函数的局部变量分配存储区，给下层参数赋值；<br>⑶    将程序转移到被调函数的入口。<br>而从被调用函数返回调用函数之前，递归退层（i←i +1 层）系统也应完成三件工作：<br>⑴    保存被调函数的计算结果；<br>⑵    释放被调函数的数据区，恢复上层参数；<br>⑶    依照被调函数保存的返回地址，将控制转移回调用函数。</p>
-<p>通过这些，我们也应该可以看到，其实递归的操作是十分多的，也就是说递归算法的效率其实很低。那么我们要如何将递归改为非递归呢？其实我们可以根据问题来实现用循环来实现递归，就好比斐波那契循环，其实用循环可以很容易实现。</p>
-<p>ok，栈到这里就结束啦。接下来是队列。</p>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>Data Structure</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>大规模SSD失效原因分析总结</title>
     <url>/2021/07/27/%E5%A4%A7%E8%A7%84%E6%A8%A1SSD%E5%A4%B1%E6%95%88%E5%8E%9F%E5%9B%A0%E5%88%86%E6%9E%90%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h1 id="企业存储环境"><a href="#企业存储环境" class="headerlink" title="企业存储环境"></a>企业存储环境</h1><hr>
@@ -227,73 +183,6 @@ int ack(int m,int n)
       </tags>
   </entry>
   <entry>
-    <title>经典算法问题 - 最大连续子数列和</title>
-    <url>/2021/07/27/%E6%9C%80%E5%A4%A7%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97/</url>
-    <content><![CDATA[<p><font size="6">最大连续子数列和</font>一道很经典的算法问题，给定一个数列，其中可能有正数也可能有负数，我们的任务是找出其中连续的一个子数列（不允许空序列），使它们的和尽可能大。我们一起用多种方式，逐步优化解决这个问题。</p>
-<p>为了更清晰的理解问题，首先我们先看一组数据：<br>8<br>-2 6 -1 5 4 -7 2 3<br>第一行的8是说序列的长度是8，然后第二行有8个数字，即待计算的序列。<br>对于这个序列，我们的答案应该是14，所选的数列是从第2个数到第5个数，这4个数的和是所有子数列中最大的。<br><a id="more"></a><br><strong>最暴力的做法，复杂度O(N^3)</strong><br>暴力求解也是容易理解的做法，简单来说，我们只要用两层循环枚举起点和终点，这样就尝试了所有的子序列，然后计算每个子序列的和，然后找到其中最大的即可，C语言代码如下：</p>
-<pre><code>#include &lt;stdio.h&gt;
-
-//N是数组长度，num是待计算的数组，放在全局区是因为可以开很大的数组
-int N, num[1024];
-
-int main()
-{
-//输入数据
-scanf(&quot;%d&quot;, &amp;N);
-for(int i = 1; i &lt;= N; i++)
-scanf(&quot;%d&quot;, &amp;num[i]);
-
-int ans = num[1]; //ans保存最大子序列和，初始化为num[1]能保证最终结果正确
-//i和j分别是枚举的子序列的起点和终点，k所在循环计算每个子序列的和
-for(int i = 1; i &lt;= N; i++) {
-for(int j = i; j &lt;= N; j++) {
-int s = 0;
-for(int k = i; k &lt;= j; k++) {
-s += num[k];
-}
-if(s &gt; ans) ans = s;
-}
-}
-printf(&quot;%d\n&quot;, ans);
-
-return 0;
-}
-</code></pre><p>这个算法的时间复杂度是O(N^3)，复杂度的计算方法可参考《算法导论》第一章，如果我们的计算机可以每秒计算一亿次的话，这个算法在一秒内只能计算出500左右长度序列的答案。</p>
-<p><strong>动态规划的魅力，O(N)解决！</strong><br>很多动态规划算法非常像数学中的递推。我们如果能找到一个合适的递推公式，就能很容易的解决问题。<br>我们用dp[n]表示以第n个数结尾的最大连续子序列的和，于是存在以下递推公式：<br>dp[n] = max(0, dp[n-1]) + num[n]<br>仔细思考后不难发现这个递推公式是正确的，则整个问题的答案是max(dp[m]) | m∈[1, N]。C语言代码如下：</p>
-<pre><code>#include &lt;stdio.h&gt;
-
-//N是数组长度，num是待计算的数组，放在全局区是因为可以开很大的数组
-int N, num[134217728];
-
-int main()
-{
-//输入数据
-scanf(&quot;%d&quot;, &amp;N);
-for(int i = 1; i &lt;= N; i++)
-scanf(&quot;%d&quot;, &amp;num[i]);
-
-num[0] = 0;
-int ans = num[1];
-for(int i = 1; i &lt;= N; i++) {
-if(num[i - 1] &gt; 0) num[i] += num[i - 1];
-else num[i] += 0;
-if(num[i] &gt; ans) ans = num[i];
-}
-
-printf(&quot;%d\n&quot;, ans);
-
-return 0;
-}
-</code></pre><p>文章来自：<a href="http://conw.net/archives/9/" target="_blank" rel="noopener">http://conw.net/archives/9/</a></p>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>Testing</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>栈的定义以及栈的顺序结构（C语言实现）</title>
     <url>/2021/07/27/%E6%A0%88%E7%9A%84%E5%AE%9A%E4%B9%89%E4%BB%A5%E5%8F%8A%E6%A0%88%E7%9A%84%E9%A1%BA%E5%BA%8F%E7%BB%93%E6%9E%84/</url>
     <content><![CDATA[<p>之前学完了线性表，现在就要开始进行全新的一章了，我们就要开始学习栈了。那么啥叫栈嘞。其实栈也是一种线性表，不过是一种限定性线性表，是将线性表的插入和删除运算限制为仅在表的一端进行。那么这要这么理解呢。首先，我们要熟悉两个概念。栈顶和栈底。</p>
@@ -410,6 +299,117 @@ int Pop(DqStack *S, StackElementType *x, int i)
          return(TRUE); 
 } 
 </code></pre><p>其实和之前的顺序结构差不多，操作的重点依旧在于对于top指针的理解与判断。</p>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>Data Structure</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>经典算法问题 - 最大连续子数列和</title>
+    <url>/2021/07/27/%E6%9C%80%E5%A4%A7%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97/</url>
+    <content><![CDATA[<p><font size="6">最大连续子数列和</font>一道很经典的算法问题，给定一个数列，其中可能有正数也可能有负数，我们的任务是找出其中连续的一个子数列（不允许空序列），使它们的和尽可能大。我们一起用多种方式，逐步优化解决这个问题。</p>
+<p>为了更清晰的理解问题，首先我们先看一组数据：<br>8<br>-2 6 -1 5 4 -7 2 3<br>第一行的8是说序列的长度是8，然后第二行有8个数字，即待计算的序列。<br>对于这个序列，我们的答案应该是14，所选的数列是从第2个数到第5个数，这4个数的和是所有子数列中最大的。<br><a id="more"></a><br><strong>最暴力的做法，复杂度O(N^3)</strong><br>暴力求解也是容易理解的做法，简单来说，我们只要用两层循环枚举起点和终点，这样就尝试了所有的子序列，然后计算每个子序列的和，然后找到其中最大的即可，C语言代码如下：</p>
+<pre><code>#include &lt;stdio.h&gt;
+
+//N是数组长度，num是待计算的数组，放在全局区是因为可以开很大的数组
+int N, num[1024];
+
+int main()
+{
+//输入数据
+scanf(&quot;%d&quot;, &amp;N);
+for(int i = 1; i &lt;= N; i++)
+scanf(&quot;%d&quot;, &amp;num[i]);
+
+int ans = num[1]; //ans保存最大子序列和，初始化为num[1]能保证最终结果正确
+//i和j分别是枚举的子序列的起点和终点，k所在循环计算每个子序列的和
+for(int i = 1; i &lt;= N; i++) {
+for(int j = i; j &lt;= N; j++) {
+int s = 0;
+for(int k = i; k &lt;= j; k++) {
+s += num[k];
+}
+if(s &gt; ans) ans = s;
+}
+}
+printf(&quot;%d\n&quot;, ans);
+
+return 0;
+}
+</code></pre><p>这个算法的时间复杂度是O(N^3)，复杂度的计算方法可参考《算法导论》第一章，如果我们的计算机可以每秒计算一亿次的话，这个算法在一秒内只能计算出500左右长度序列的答案。</p>
+<p><strong>动态规划的魅力，O(N)解决！</strong><br>很多动态规划算法非常像数学中的递推。我们如果能找到一个合适的递推公式，就能很容易的解决问题。<br>我们用dp[n]表示以第n个数结尾的最大连续子序列的和，于是存在以下递推公式：<br>dp[n] = max(0, dp[n-1]) + num[n]<br>仔细思考后不难发现这个递推公式是正确的，则整个问题的答案是max(dp[m]) | m∈[1, N]。C语言代码如下：</p>
+<pre><code>#include &lt;stdio.h&gt;
+
+//N是数组长度，num是待计算的数组，放在全局区是因为可以开很大的数组
+int N, num[134217728];
+
+int main()
+{
+//输入数据
+scanf(&quot;%d&quot;, &amp;N);
+for(int i = 1; i &lt;= N; i++)
+scanf(&quot;%d&quot;, &amp;num[i]);
+
+num[0] = 0;
+int ans = num[1];
+for(int i = 1; i &lt;= N; i++) {
+if(num[i - 1] &gt; 0) num[i] += num[i - 1];
+else num[i] += 0;
+if(num[i] &gt; ans) ans = num[i];
+}
+
+printf(&quot;%d\n&quot;, ans);
+
+return 0;
+}
+</code></pre><p>文章来自：<a href="http://conw.net/archives/9/" target="_blank" rel="noopener">http://conw.net/archives/9/</a></p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>Testing</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>栈与递归（C语言实现）</title>
+    <url>/2021/07/27/%E6%A0%88%E4%B8%8E%E9%80%92%E5%BD%92/</url>
+    <content><![CDATA[<p>我们已经知道了栈的定义以及有了对栈的基本应用，我们现在就要进一步对栈的应用有更深入的了解。</p>
+<p>递归，就是在定义自身的同时又出现了对自身的调用。而递归又分为两种，直接和间接。直接是在定义函数体内直接调用自己，而间接则是经过一系列中间调用函数语句，通过其他函数间接调用自己。</p>
+<p><strong>事实上，递归的实现是在栈的基础上实现的。</strong>（这个事情之后会提）</p>
+<p>那么有哪些我们熟悉的递归呢？斐波那契数列肯定是我们会第一个想到的。其次是阿克曼函数，可能这个函数会有些生疏。</p>
+<pre><code>上述 Ackerman 函数可用一个简单的 C 语言函数描述如下： 
+int ack(int m,int n) 
+{  
+    if(m==0) 
+        return n+1;  
+    else if (n==0) 
+        return ack(m-1,1); 
+    else return ack(m-1, ack(m,n-1)); 
+} 
+</code></pre><a id="more"></a>
+<p>当然还要一个非常非常经典的题目，<strong>汉诺塔问题</strong>。<br>n阶Hanoi塔问题：假设有三个分别命名为X,Y和Z的塔座，在塔座X上插有n个直径大小各不相同、从小到大编号为1，2,… ，n的圆盘。现要求将塔座X上的n个圆盘移至塔座Z上，并仍按同样顺序叠排。圆盘移动时必须遵循下列规则：<br>①    每次只能移动一个圆盘；<br>②    圆盘可以插在X,Y和Z中的任何一个塔座上；<br>③    任何时刻都不能将一个较大的圆盘压在较小的圆盘之上。 </p>
+<p>当n=1时，问题比较简单，只要将编号为1的圆盘从座X直接移动到塔座Z上即可；当n&gt;1时，需利用塔座Y作辅助塔座，若能设法将压在编号为n的圆盘上的n-1个圆盘从塔座X(依照上述原则)移至塔座Y上，则可先将编号为n的圆盘从塔座X 移至塔座Z上，然后再将塔座Y上的n-1个圆盘(依照上述原则)移至塔座Z上。而如何将n-1个圆盘从一个塔座移至另一个塔座问题是一个和原问题具有相同特征属性的问题，只是问题的规模小于1，因此可以用同样方法求解。由此可得如下求解n阶Hanoi塔问题的递归算法</p>
+<pre><code>void hanoi(int n, char x, char y, char z) 
+/* 将塔座X上从上到下编号为1至n，且按直径由小到大叠放的n个圆盘，按规则搬到塔座Z上，Y用作辅助塔座。*/ 
+{ 
+   if(n==1) 
+     move(x,1,z); /*将编号为1的圆盘从x移动z*
+   else 
+   { 
+     hanoi(n-1,x,z,y);/* 将X上编号为1至n-1的圆盘移到y,z作辅助塔 */ 
+     move(x,n,z); /* 将编号为n的圆盘从x移到z */ 
+     hanoi(n-1, y,x ,z);  /* 将y上编号为1至n-1的圆盘移到z，x作辅助塔 */  
+   } 
+}  
+</code></pre><p>事实上，我们就可以得出一些递归问题算法的得出规律。<br>使用递归算法的前提有两个：<br>⑴原问题可以层层分解为类似的的子问题，且子问题比原问题的规模更小。<br>⑵规模最小的子问题具有直接解。</p>
+<p>设计递归算法的方法是：<br>⑴寻找分解方法：将原问题转化为子问题求解。（ 例：n!=n*(n-1)! ）<br>⑵设计递归出口：即根据规模最小的子问题，确定递归终止条件。（例：求解 n!时，当 n=1 时，n!=1）。</p>
+<p>那么在递归实现的时候都发生了些什么呢？<br>递归过程的实现递归进层（i→i +1 层）系统需要做三件事：<br>⑴    保留本层参数与返回地址；<br>⑵    为被调用函数的局部变量分配存储区，给下层参数赋值；<br>⑶    将程序转移到被调函数的入口。<br>而从被调用函数返回调用函数之前，递归退层（i←i +1 层）系统也应完成三件工作：<br>⑴    保存被调函数的计算结果；<br>⑵    释放被调函数的数据区，恢复上层参数；<br>⑶    依照被调函数保存的返回地址，将控制转移回调用函数。</p>
+<p>通过这些，我们也应该可以看到，其实递归的操作是十分多的，也就是说递归算法的效率其实很低。那么我们要如何将递归改为非递归呢？其实我们可以根据问题来实现用循环来实现递归，就好比斐波那契循环，其实用循环可以很容易实现。</p>
+<p>ok，栈到这里就结束啦。接下来是队列。</p>
 ]]></content>
       <categories>
         <category>数据结构</category>
@@ -589,6 +589,53 @@ int Pop(LinkStack top, StackElementType *x)
       </tags>
   </entry>
   <entry>
+    <title>线性表（五）--双向链表以及静态链表 （C语言实现）</title>
+    <url>/2021/07/27/%E7%BA%BF%E6%80%A7%E8%A1%A8%EF%BC%88%E4%BA%94%EF%BC%89--%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<p>有了单向循环链表，我们路确定某一个结点的前趋，但是我们发现这需要遍历整个链表，如果希望从表中快速确定某一个结点的前趋，另一个解决方法就是在单链表的每个结点里再增加一个指向其前趋的指针域 prior。这样形成的链表中就有两条方向不同的链，就是<strong>双向链表</strong>。<br><img src="https://i.loli.net/2018/07/30/5b5ef6faddbb4.jpg" alt><br><a id="more"></a><br>与单向链表不同，双向链表有两个指针域。所以定义如下：</p>
+<pre><code>typedef struct DNode 
+{     
+   ElemType data； 
+   struct DNode *prior，*next； 
+}DNode,* DoubleList； 
+</code></pre><p>事实上，双向链表也是由头指针唯一确定的，因为增加头结点能使双链表的某些运算变得方便。在双向链表中，那些只涉及后继指针的算法，如求表长度、取元素、元素定位等，与单链表中相应的算法相同，但对于前插和删除操作则涉及到前驱和后继两个方向的指针变化，因此与单链表中的算法不同。</p>
+<p>先来看看插入操作。</p>
+<pre><code>在双向链表第 i 个结点之前插入一个的新的结点
+int DlinkIns(DoubleList L,int i,ElemType e) 
+{ 
+     DNode  *s,*p; 
+     … /*先检查待插入的位置i是否合法（实现方法同单链表的前插操作）*/ 
+     … /*若位置i合法，则找到第i个结点并让指针p指向它*/ 
+     s=(DNode*)malloc(sizeof(DNode)); 
+      if (s) 
+      { 
+         s-&gt;data=e;       
+         s-&gt;prior=p-&gt;prior;      ① 
+         p-&gt;prior-&gt;next=s;      ② 
+         s-&gt;next=p;           ③ 
+         p-&gt;prior=s;           ④ 
+         return TRUE; 
+      }  
+      else return FALSE; 
+} 
+</code></pre><p>对于删除，实际上和单链表没有区别。<br>同样的双向链表也存在循环链表，和单链表区别不大，就不再累述了。<br>其实对于链表来说，只要能在脑海中有示例图，理解了之后就可以很轻松的写出来。</p>
+<p>之前介绍的链表，其实都是动态的。那么什么是静态链表呢。静态链表其实是数组模拟实现的链表。<br>静态链表的基本特征：<br>1.存储池：定义一个较大的结构数组作为备用结点空间<br>2.游标机制：每个结点应含有两个域：data域和next（或cursor）域</p>
+<pre><code>#define  Maxsize  链表可能达到的最大长度 typedef  struct 
+{
+    ElemType data;  
+    int cursor; 
+}Component, StaticList[Maxsize]; 
+</code></pre><p>对于静态链表的理解可能看了这幅图会好很多。</p>
+<p><img src="https://i.loli.net/2018/07/30/5b5efa29d1848.jpg" alt></p>
+<p>那么到这里线性表就结束了，没有六七八九。。。</p>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>Data Structure</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>线性表（三）--链式结构实践 （C语言实现）</title>
     <url>/2021/07/27/%E7%BA%BF%E6%80%A7%E8%A1%A8%EF%BC%88%E4%B8%89%EF%BC%89--%E9%93%BE%E5%BC%8F%E7%BB%93%E6%9E%84%E5%AE%9E%E8%B7%B5/</url>
     <content><![CDATA[<p>怎么说呢，这一节是对上一节的补充，毕竟上一节只对定义以及概念进行了讲解，可能还会有些不太熟练，这一节之后，相信会对链式结构有更深入的理解，至少lyjgod是这样的。真的很感谢耿国华老师的课程，受益匪浅。</p>
@@ -620,107 +667,6 @@ int Pop(LinkStack top, StackElementType *x)
 </code></pre><p>那么至此，我们已经将链式结构的基础学习完毕了，总结一下把。<br>进行链式操作。我们要注意以下几点：<br>1、访问单链表中第i个结点或者是值为e的结点时，必须从头开始，这个我在之前也提到过。<br>2、千万要注意头结点和尾节点的设置，不然，是要出事情滴。<br>3、在操作单链表的时候，要注意前后结点的关系，在进行插入删除操作的同时要注意前后结点指针的保留。</p>
 <p>学完了链式结构。。。莫名很开心。<br><img src="https://i.loli.net/2018/07/29/5b5d76054c45b.jpg" alt></p>
 <p><strong>PS:本人比图片帅气得多，只是烘托气氛！！</strong></p>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>Data Structure</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>线性表（一）--顺序存储 （C语言实现）</title>
-    <url>/2021/07/27/%E7%BA%BF%E6%80%A7%E8%A1%A8%EF%BC%88%E4%B8%80%EF%BC%89--%E9%A1%BA%E5%BA%8F%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<p><font size="6">线性结构</font>是最简单、最直接的数据关系，数据元素之间一一对应。<br><img src="data:image/jpeg;base64,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" alt></p>
-<p><strong>抽象数据类型定义：</strong><br>即包含(1) 数据元素（ADT）（2）结构关系 （3）基本操作<br><br><strong>基本操作包含</strong>：1、InitList（初始化） 2、DestroyList（销毁）3、ClearList（置空）4、EmptyList（判空）5、ListLength（求长度）6、Localte（查找）7、GetDate（存取）8、InList（插入）9、DelList（删除）<br><a id="more"></a><br><strong>抽象数据类型一经定义可多次使用</strong></p>
-<p><strong><em>了解了线性表的基本信息，我们就从顺序存储类型开始。</em></strong></p>
-<p><strong>顺序存储结构的定义</strong>：用一组地址连续的存储单元依此存储线性表中的各个元素逻辑上相邻的数据元素在物理上也相邻。</p>
-<p>假设线性表中有n个元素，每个元素占k个单元格。那么第一个元素的地址为loc（a1）称为基地址，则第i个元素的地址<strong>loc（ai）：loc（ai）=loc（a1）+（i-1）×k</strong><br></p>
-<p>顺序存储结构的C语言描述（使用结构体）：</p>
-<pre><code>typedef struct
-{
-ElemType elem[maxsize];
-int last;
-}SeqList;
-</code></pre><p>那么接下来我们来看看顺序存储结构的基本运算。<br><br>1、查找运算  2、插入运算 3、删除运算 4、顺序表合并运算。<br><br><strong>首先是查找运算</strong>，查找运算有两种，一种是按序号查找，另一种是按内容查找。按序号查找非常简单，只需要对数组进行操作即可。我们重点来看按内容查找。</p>
-<pre><code>int  Locate(SeqList L，ElemType e) 
- {
- i=0;i 为扫描计数器，初值为 0，即从第一个元素开始比较
- while ((i&lt;=L.last)&amp;&amp;(L.elem[i]!=e))顺序扫描表，直到找到值为key的元素
- i++;或扫描到表尾而没找到
- if (i&lt;=L.last)
-return(i+1);若找到值为e的元素，则返回其序号
- else
-return(-1);若没找到，则返回空序号
-}算法的时间复杂度为 O(n)。
-</code></pre><p><strong>然后是插入算法</strong>，因为插入算法需要将插入位置之后的元素移动，因而显得比查找难一些。下面列出代码：</p>
-<pre><code>#define OK   1
-#define ERROR  0
-int  InsList(SeqList *L,int i,ElemType e)
-//在顺序表 L 中第 i 个数据元素之前插入一个元素 e。 插入前表长 n=L-&gt;last+1，i 的合法取值范围是 1≤i≤L-&gt;last+2 
-{  
- int k; 
- if((i&lt;1) || (i&gt;L-&gt;last+2)) /首先判断插入位置是否合法/ 
- {
- printf(“插入位置 i 值不合法”)； 
- return(ERROR); 
- } 
- if(L-&gt;last&gt;= MAXSIZE-1) 
- {
-printf(“表已满无法插入”)； 
-return(ERROR); 
- } 
- for(k=L-&gt;last;k&gt;=i-1;k--)   /为插入元素而移动位置/ 
- L-&gt;elem[k+1]=L-&gt;elem[k]; 
- L-&gt;elem[i-1]=e;   /*在 C 语言数组中，第 i 个元素的下标为 i-1*/ 
- L-&gt;last++; 
- return(OK); 
-} 
-</code></pre><p><strong>完成了插入运算之后，删除运算也就明白了</strong>。</p>
-<pre><code>int  DelList(SeqList *L,int i,ElemType *e) 
-/*在顺序表 L 中删除第 i 个数据元素，并用指针参数 e 返回其值。i 的合法取值为 1≤i≤L.last+1 */ 
-{  
- int k; 
- if((i&lt;1)||(i&gt;L-&gt;last+1))
- {  
- printf(“删除位置不合法！”)； 
- return(ERROR); 
- } 
-*e= L-&gt;elem[i-1];  /* 将删除的元素存放到 e 所指向的变量中*/ 
-for(k=i;i&lt;=L-&gt;last;k++) 
- L-&gt;elem[k-1]= L-&gt;elem[k];  /*将后面的元素依次前移*/ 
- L-&gt;last--; 
- return(OK); 
-} 
-</code></pre><p><strong>有了插入删除的基础，我们就可以实现两个表的合并操作了</strong>。</p>
-<pre><code>void merge(SeqList *LA,  SeqList *LB,  SeqList *LC) 
-{ 
-   int i,j,k,l;
-   i=0;j=0;k=0;
-   while(i&lt;=LA-&gt;last&amp;&amp;j&lt;=LB-&gt;last) 
-   if(LA-&gt;elem[i]&lt;=LB-&gt;elem[j]) 
-   {
-  LC-&gt;elem[k]= LA-&gt;elem[i];
-  i++;k++; 
-   }
-   else{ 
-   LC-&gt;elem[k]=LB-&gt;elem[j]; 
-   j++;k++; 
-   } 
-   while(i&lt;=LA-&gt;last) /*当表 LA 有剩余元素时，则将表 LA 余下的元素赋给表 LC*/
-   {
-  LC-&gt;elem[k]= LA-&gt;elem[i];
-  i++;k++;
-   }
-   while(j&lt;=LB-&gt;last)  /*当表 LB 有剩余元素时，则将表 LB 余下的元素赋给表 LC*/
-   {
-  LC-&gt;elem[k]= LB-&gt;elem[j]; 
-  j++;k++;
-   }
-   LC-&gt;last=LA-&gt;last+LB-&gt;last+1;
-} 
-</code></pre><p>学习完了顺序结构之后，我们来看看顺序结构的优缺点。<br>线性表顺序表示的优点是：<br>（1）无需为表示结点间的逻辑关系而增加额外的存储空间。<br>（2）可方便的随机存取表中的任一元素。<br>缺点：<br>（1） 插入或删除运算需要移动大量的结点，效率低下。<br>（2）由于顺序表存储分配静态分配。当表长变化较大难以确定合适的存储规模。 <br></p>
-<p>纯手打。。。累死我了。。。。慢慢来，还早着呢。<img src="data:image/jpeg;base64,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" alt></p>
 ]]></content>
       <categories>
         <category>数据结构</category>
@@ -907,6 +853,178 @@ Node *Locate( LinkList L,ElemType key) / * 在带头结点的单链表 L 中查�
       </tags>
   </entry>
   <entry>
+    <title>线性表（一）--顺序存储 （C语言实现）</title>
+    <url>/2021/07/27/%E7%BA%BF%E6%80%A7%E8%A1%A8%EF%BC%88%E4%B8%80%EF%BC%89--%E9%A1%BA%E5%BA%8F%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<p><font size="6">线性结构</font>是最简单、最直接的数据关系，数据元素之间一一对应。<br><img src="data:image/jpeg;base64,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" alt></p>
+<p><strong>抽象数据类型定义：</strong><br>即包含(1) 数据元素（ADT）（2）结构关系 （3）基本操作<br><br><strong>基本操作包含</strong>：1、InitList（初始化） 2、DestroyList（销毁）3、ClearList（置空）4、EmptyList（判空）5、ListLength（求长度）6、Localte（查找）7、GetDate（存取）8、InList（插入）9、DelList（删除）<br><a id="more"></a><br><strong>抽象数据类型一经定义可多次使用</strong></p>
+<p><strong><em>了解了线性表的基本信息，我们就从顺序存储类型开始。</em></strong></p>
+<p><strong>顺序存储结构的定义</strong>：用一组地址连续的存储单元依此存储线性表中的各个元素逻辑上相邻的数据元素在物理上也相邻。</p>
+<p>假设线性表中有n个元素，每个元素占k个单元格。那么第一个元素的地址为loc（a1）称为基地址，则第i个元素的地址<strong>loc（ai）：loc（ai）=loc（a1）+（i-1）×k</strong><br></p>
+<p>顺序存储结构的C语言描述（使用结构体）：</p>
+<pre><code>typedef struct
+{
+ElemType elem[maxsize];
+int last;
+}SeqList;
+</code></pre><p>那么接下来我们来看看顺序存储结构的基本运算。<br><br>1、查找运算  2、插入运算 3、删除运算 4、顺序表合并运算。<br><br><strong>首先是查找运算</strong>，查找运算有两种，一种是按序号查找，另一种是按内容查找。按序号查找非常简单，只需要对数组进行操作即可。我们重点来看按内容查找。</p>
+<pre><code>int  Locate(SeqList L，ElemType e) 
+ {
+ i=0;i 为扫描计数器，初值为 0，即从第一个元素开始比较
+ while ((i&lt;=L.last)&amp;&amp;(L.elem[i]!=e))顺序扫描表，直到找到值为key的元素
+ i++;或扫描到表尾而没找到
+ if (i&lt;=L.last)
+return(i+1);若找到值为e的元素，则返回其序号
+ else
+return(-1);若没找到，则返回空序号
+}算法的时间复杂度为 O(n)。
+</code></pre><p><strong>然后是插入算法</strong>，因为插入算法需要将插入位置之后的元素移动，因而显得比查找难一些。下面列出代码：</p>
+<pre><code>#define OK   1
+#define ERROR  0
+int  InsList(SeqList *L,int i,ElemType e)
+//在顺序表 L 中第 i 个数据元素之前插入一个元素 e。 插入前表长 n=L-&gt;last+1，i 的合法取值范围是 1≤i≤L-&gt;last+2 
+{  
+ int k; 
+ if((i&lt;1) || (i&gt;L-&gt;last+2)) /首先判断插入位置是否合法/ 
+ {
+ printf(“插入位置 i 值不合法”)； 
+ return(ERROR); 
+ } 
+ if(L-&gt;last&gt;= MAXSIZE-1) 
+ {
+printf(“表已满无法插入”)； 
+return(ERROR); 
+ } 
+ for(k=L-&gt;last;k&gt;=i-1;k--)   /为插入元素而移动位置/ 
+ L-&gt;elem[k+1]=L-&gt;elem[k]; 
+ L-&gt;elem[i-1]=e;   /*在 C 语言数组中，第 i 个元素的下标为 i-1*/ 
+ L-&gt;last++; 
+ return(OK); 
+} 
+</code></pre><p><strong>完成了插入运算之后，删除运算也就明白了</strong>。</p>
+<pre><code>int  DelList(SeqList *L,int i,ElemType *e) 
+/*在顺序表 L 中删除第 i 个数据元素，并用指针参数 e 返回其值。i 的合法取值为 1≤i≤L.last+1 */ 
+{  
+ int k; 
+ if((i&lt;1)||(i&gt;L-&gt;last+1))
+ {  
+ printf(“删除位置不合法！”)； 
+ return(ERROR); 
+ } 
+*e= L-&gt;elem[i-1];  /* 将删除的元素存放到 e 所指向的变量中*/ 
+for(k=i;i&lt;=L-&gt;last;k++) 
+ L-&gt;elem[k-1]= L-&gt;elem[k];  /*将后面的元素依次前移*/ 
+ L-&gt;last--; 
+ return(OK); 
+} 
+</code></pre><p><strong>有了插入删除的基础，我们就可以实现两个表的合并操作了</strong>。</p>
+<pre><code>void merge(SeqList *LA,  SeqList *LB,  SeqList *LC) 
+{ 
+   int i,j,k,l;
+   i=0;j=0;k=0;
+   while(i&lt;=LA-&gt;last&amp;&amp;j&lt;=LB-&gt;last) 
+   if(LA-&gt;elem[i]&lt;=LB-&gt;elem[j]) 
+   {
+  LC-&gt;elem[k]= LA-&gt;elem[i];
+  i++;k++; 
+   }
+   else{ 
+   LC-&gt;elem[k]=LB-&gt;elem[j]; 
+   j++;k++; 
+   } 
+   while(i&lt;=LA-&gt;last) /*当表 LA 有剩余元素时，则将表 LA 余下的元素赋给表 LC*/
+   {
+  LC-&gt;elem[k]= LA-&gt;elem[i];
+  i++;k++;
+   }
+   while(j&lt;=LB-&gt;last)  /*当表 LB 有剩余元素时，则将表 LB 余下的元素赋给表 LC*/
+   {
+  LC-&gt;elem[k]= LB-&gt;elem[j]; 
+  j++;k++;
+   }
+   LC-&gt;last=LA-&gt;last+LB-&gt;last+1;
+} 
+</code></pre><p>学习完了顺序结构之后，我们来看看顺序结构的优缺点。<br>线性表顺序表示的优点是：<br>（1）无需为表示结点间的逻辑关系而增加额外的存储空间。<br>（2）可方便的随机存取表中的任一元素。<br>缺点：<br>（1） 插入或删除运算需要移动大量的结点，效率低下。<br>（2）由于顺序表存储分配静态分配。当表长变化较大难以确定合适的存储规模。 <br></p>
+<p>纯手打。。。累死我了。。。。慢慢来，还早着呢。<img src="data:image/jpeg;base64,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" alt></p>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>Data Structure</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>论文阅读：Improving the Accuracy, Adaptability, and Interpretability of SSD Failure Prediction Models?</title>
+    <url>/2021/08/16/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%EF%BC%9AImproving%20the%20Accuracy,%20Adaptability,%20and%20Interpretability%20of%20SSD%20Failure%20Prediction%20Models/</url>
+    <content><![CDATA[<h1 id="论文阅读：Improving-the-Accuracy-Adaptability-and-Interpretability-of-SSD-Failure-Prediction-Models-（SoCC-’20）"><a href="#论文阅读：Improving-the-Accuracy-Adaptability-and-Interpretability-of-SSD-Failure-Prediction-Models-（SoCC-’20）" class="headerlink" title="论文阅读：Improving the Accuracy, Adaptability, and Interpretability of SSD Failure Prediction Models?（SoCC ’20）"></a>论文阅读：Improving the Accuracy, Adaptability, and Interpretability of SSD Failure Prediction Models?（SoCC ’20）</h1><h3 id="ABSTRACT"><a href="#ABSTRACT" class="headerlink" title="ABSTRACT"></a>ABSTRACT</h3><p>文章也是使用机器学习进行硬盘故障的错误预测，不同于其他的文章基本使用随机森林，这篇文章提出了使用1-级隔离森林（1-class isolation forest）和基于自动编码器的异常检测技术来进行高精度的SSD故障预测。文章的数据集来源于谷歌，时间跨度为6年。</p>
+<h3 id="1-CLASS-FAILURE-PREDICTION"><a href="#1-CLASS-FAILURE-PREDICTION" class="headerlink" title="1-CLASS FAILURE PREDICTION"></a>1-CLASS FAILURE PREDICTION</h3><h5 id="Accurate-Prediction-of-SSD-Failures"><a href="#Accurate-Prediction-of-SSD-Failures" class="headerlink" title="Accurate Prediction of SSD Failures"></a>Accurate Prediction of SSD Failures</h5><p>从数据集来看，每一个固态硬盘观察值包含21个不同特征的值。并且数据集要解决两个最重要的问题：</p>
+<p>（1）特征空间过大，机器学习的算法训练和推理时间会随着特征数量的增长而呈现出近似指数的增长趋势。文章对此开发了一种方法来有效地组合不同特征选择算法的排名，从而在训练时间和准确性方面获得最佳的模型性能。</p>
+<p>（2）严重的类别不平衡。因为异常的SSD数量肯定远小于正常的数量。从数据集看健康SSD有4000多万个数据点，而有故障的SSD只有15000多个数据点。（并且某些修复后重新投入与使用又出现故障需要作为单独的故障看待，因此实际故障SSD会更少）</p>
+<h5 id="Predicting-unseen-failures"><a href="#Predicting-unseen-failures" class="headerlink" title="Predicting unseen failures"></a>Predicting unseen failures</h5><p>之前的研究检测硬盘故障的方法通常没有办法预测模型在训练期间没有经历过的看不见的故障类型，文章通过仅学习大多数类（健康SSD）来保证模型不会过度适应有限的已知或以前见过的故障类型。同时使用了自动编码器的设定。也就是说，首先训练模型，让模型能够学习健康的固态硬盘应该是怎么样的压缩表示，这样的话，健康SSD数据通过压缩表示（编码）进入模型之后会被识别为健康SSD，这样在进行解码时，输出就会相似。而输入和输出遭受大的重构误差，则样本被标记为异常(故障驱动器)。简单图示如下：</p>
+<p><img src="https://i.loli.net/2021/08/16/OEqdlewMF48vcUS.png" alt="51QX__8L`PWJBBHWUB_04OQ.png"></p>
+<h3 id="METHODOLOGY"><a href="#METHODOLOGY" class="headerlink" title="METHODOLOGY"></a>METHODOLOGY</h3><p>数据集被分为MLC A、B、C、D四种。获得的数据集中包含每个正常驱动器的大约300个观察值，以及每个故障驱动器的4到140个观察值。下图为21中特征值。</p>
+<p><img src="https://i.loli.net/2021/08/16/763ogAQFBiYR5Mf.png" alt="AZI`9S04YXV@E__V__G10_D.png"></p>
+<h5 id="Data-Preprocessing"><a href="#Data-Preprocessing" class="headerlink" title="Data Preprocessing"></a>Data Preprocessing</h5><p>做了一个额外的数据集，由参数N标识。举个例子，N=3就表明这个数据集包含每个驱动器出现故障前3天的所有观察点。</p>
+<h5 id="Feature-Selection"><a href="#Feature-Selection" class="headerlink" title="Feature Selection"></a>Feature Selection</h5><p>使用了三种不同的特征选择方法，Filter、Embedded 和Wrapper技术，并实现了八种不同的算法，包括Pearson排名、Spearman排名、卡方检验、方差分析(ANOV A)  、递归特征消除、额外树、Lasso正则化、弹性网和岭回归。下图为最终选用的特征。</p>
+<p><img src="https://i.loli.net/2021/08/16/nt43EWIdSgpyGaU.png" alt="~DTFAF____~_80SG2_J_8TU.png"></p>
+<h3 id="RESULTS"><a href="#RESULTS" class="headerlink" title="RESULTS"></a>RESULTS</h3><p>最后的实验结果和一些常见机器学习算法进行了一些对比，这里没什么好说的。</p>
+<p><img src="https://i.loli.net/2021/08/16/8HoYaVKk6u7D1EX.png" alt="M@GCP_OO_R_N_FY0C2NG6FU.png"></p>
+<p><img src="https://i.loli.net/2021/08/16/jmqOv35XGQdpC8J.png" alt="7B_OQ0X`~Q_94_OWYQ16DPV.png"></p>
+<p><img src="https://i.loli.net/2021/08/16/zabf8rU2myICiAd.png" alt="__H4_1_6`HFL27ZVJ__C_~4.png"></p>
+<p>然后就是文章提到的怎么去辨别是什么导致了判断出来的错误。因为文章使用的方式，是通过对健康SSD进行学习判断，进而反找出不符合健康SSD的故障SSD。但是这样会导致没有办法分辨是什么导致了故障，以及什么故障。文章的解决方案是对重构误差贡献大于每个特征的平均误差的特征被定义为一个重要原因。下图是所有重要原因在所有SSD编号中的一个分布图。</p>
+<p><img src="file:///C:\Users\lyj\AppData\Roaming\Tencent\Users\1033125202\QQ\WinTemp\RichOle\{HGZIKXNERQQ@IVOX[1XZ19.png" alt="img"></p>
+]]></content>
+      <categories>
+        <category>论文分析</category>
+      </categories>
+      <tags>
+        <tag>data center failures</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>线性表（四）--循环链表 （C语言实现）</title>
+    <url>/2021/07/27/%E7%BA%BF%E6%80%A7%E8%A1%A8%EF%BC%88%E5%9B%9B%EF%BC%89--%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<p>想不到把 还有四。。。。其实还有五六七八九。。。。。</p>
+<p><img src="https://i.loli.net/2018/07/30/5b5e8325bb4e2.jpg" alt></p>
+<p>通过前面对单链表的学习，我们知道单链表只能从当前结点出发向后操作。那么啥叫循环链表结构嘞。循环循环，也就是首尾相接的链表，是不是很好理解。（我不会告诉你就是单链表的尾结点指向头结点或是第一个结点，一般仍以头结点表示一个链表）。。。。。<br><a id="more"></a><br>这样我们就可以从任一结点开始遍历整个链表，而不是只能从头结点开始。</p>
+<p>如何创建就不再细写了，可以参考之前文章中的头插法和尾插法。</p>
+<p>那么我们就来看看带头结点的循环单链表的一般形式循环单链表的合并吧。</p>
+<p>遍历两链表找表尾；将第一表尾链接第二表头，将第二表尾链接第一表头就可以了。</p>
+<pre><code>LinkList merge_ 1(LinkListLA,LinkList LB) 
+{  /*此算法将两个采用头指针的循环单链表的首尾连接起来*/ 
+    Node *p, *q; 
+    p=LA; q=LB; 
+    while (p-&gt;next!=LA) 
+        p=p-&gt;next; /*找到表LA的表尾，用p指向它*/ 
+    while (q-&gt;next!=LB) 
+        q=q-&gt;next; /*找到表LB的表尾，用q指向它*/ 
+    q-&gt;next=LA; /*修改表LB 的尾指针，使之指向表LA 的头结点*/ 
+    p-&gt;next=LB-&gt;next; /*修改表LA的尾指针，使之指向表LB 中的第一个结点*/ 
+    free(LB); 
+    return(LA); 
+} 
+
+
+LinkList  merge_2（LinkList RA,LinkList RB） 
+{  /*此算法将两个采用尾指针的循环链表首尾连接起来*/ 
+    Node *p; 
+    p=RA-&gt;next; /*保存链表RA的头结点地址*/ 
+    RA-&gt;next=RB-&gt;next-&gt;next;/*链表RB的开始结点链到链表RA的终端结点之后*/  
+    free(RB-&gt;next);/*释放链表RB的头结点*/ 
+    RB-&gt;next=p;/*链表RA的头结点链到链表RB的终端结点之后*/ 
+    return  RB;/*返回新循环链表的尾指针*/ 
+} 
+</code></pre><p>这里有些地方需要说明一下，那就是可能-&gt;next-&gt;next有些绕，其实这是将其连到了第一个指针而不是头指针，这是有区别的。其次关于free（）函数，free()的调用方式是：void free(void   *ptr)。是释放由ptr所指的内存，并将它返回给堆，以便这些内存成为再分配时的可用内存，而不是将其置为null。<br>其实作为循环链表，连接时为什么非要找到头尾结点，我想了想，大概是因为头结点的存在吧，毕竟头结点对于整个表的内容是无关的。（当然也可能不是。。也可能可以随便找个结点。。。仍待考证。。。。）</p>
+<p><strong>总的来说，循环链表与单链表最大的区别就是可以从当前结点遍历所有结点。</strong></p>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>Data Structure</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>队列（C语言实现）</title>
     <url>/2021/07/27/%E9%98%9F%E5%88%97/</url>
     <content><![CDATA[<p>队列其实和栈一样，也是一种限定性线性表，只不过队列的操作顺序与栈不同，栈是后进先出，而队列是先进先出。<br><strong>在队列中，允许插入的一端称为队尾。而允许删除的一端称为队头。</strong></p>
@@ -980,93 +1098,36 @@ int DeleteQueue(LinkQueue * Q, QueueElementType *x)
       </tags>
   </entry>
   <entry>
-    <title>线性表（五）--双向链表以及静态链表 （C语言实现）</title>
-    <url>/2021/07/27/%E7%BA%BF%E6%80%A7%E8%A1%A8%EF%BC%88%E4%BA%94%EF%BC%89--%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/</url>
-    <content><![CDATA[<p>有了单向循环链表，我们路确定某一个结点的前趋，但是我们发现这需要遍历整个链表，如果希望从表中快速确定某一个结点的前趋，另一个解决方法就是在单链表的每个结点里再增加一个指向其前趋的指针域 prior。这样形成的链表中就有两条方向不同的链，就是<strong>双向链表</strong>。<br><img src="https://i.loli.net/2018/07/30/5b5ef6faddbb4.jpg" alt><br><a id="more"></a><br>与单向链表不同，双向链表有两个指针域。所以定义如下：</p>
-<pre><code>typedef struct DNode 
-{     
-   ElemType data； 
-   struct DNode *prior，*next； 
-}DNode,* DoubleList； 
-</code></pre><p>事实上，双向链表也是由头指针唯一确定的，因为增加头结点能使双链表的某些运算变得方便。在双向链表中，那些只涉及后继指针的算法，如求表长度、取元素、元素定位等，与单链表中相应的算法相同，但对于前插和删除操作则涉及到前驱和后继两个方向的指针变化，因此与单链表中的算法不同。</p>
-<p>先来看看插入操作。</p>
-<pre><code>在双向链表第 i 个结点之前插入一个的新的结点
-int DlinkIns(DoubleList L,int i,ElemType e) 
-{ 
-     DNode  *s,*p; 
-     … /*先检查待插入的位置i是否合法（实现方法同单链表的前插操作）*/ 
-     … /*若位置i合法，则找到第i个结点并让指针p指向它*/ 
-     s=(DNode*)malloc(sizeof(DNode)); 
-      if (s) 
-      { 
-         s-&gt;data=e;       
-         s-&gt;prior=p-&gt;prior;      ① 
-         p-&gt;prior-&gt;next=s;      ② 
-         s-&gt;next=p;           ③ 
-         p-&gt;prior=s;           ④ 
-         return TRUE; 
-      }  
-      else return FALSE; 
-} 
-</code></pre><p>对于删除，实际上和单链表没有区别。<br>同样的双向链表也存在循环链表，和单链表区别不大，就不再累述了。<br>其实对于链表来说，只要能在脑海中有示例图，理解了之后就可以很轻松的写出来。</p>
-<p>之前介绍的链表，其实都是动态的。那么什么是静态链表呢。静态链表其实是数组模拟实现的链表。<br>静态链表的基本特征：<br>1.存储池：定义一个较大的结构数组作为备用结点空间<br>2.游标机制：每个结点应含有两个域：data域和next（或cursor）域</p>
-<pre><code>#define  Maxsize  链表可能达到的最大长度 typedef  struct 
-{
-    ElemType data;  
-    int cursor; 
-}Component, StaticList[Maxsize]; 
-</code></pre><p>对于静态链表的理解可能看了这幅图会好很多。</p>
-<p><img src="https://i.loli.net/2018/07/30/5b5efa29d1848.jpg" alt></p>
-<p>那么到这里线性表就结束了，没有六七八九。。。</p>
+    <title>论文阅读：What does Vibration do to Your SSD?</title>
+    <url>/2021/08/16/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%EF%BC%9AWhat%20does%20Vibration%20do%20to%20Your%20SSD%EF%BC%88DAC%E2%80%9819%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="论文阅读：What-does-Vibration-do-to-Your-SSD-（DAC‘19）"><a href="#论文阅读：What-does-Vibration-do-to-Your-SSD-（DAC‘19）" class="headerlink" title="论文阅读：What does Vibration do to Your SSD?（DAC‘19）"></a>论文阅读：What does Vibration do to Your SSD?（DAC‘19）</h1><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract:"></a>Abstract:</h3><p>​        尽管Nand Flash源于其与非门的结构，抗震性相比较与普通Hdd有极大的提升（由于其不存在任何移动的机械部件，因此认为更能抵抗震动。），但是研究发现震动依旧会对SSD造成影响。</p>
+<h3 id="Experimental-Methodology"><a href="#Experimental-Methodology" class="headerlink" title="Experimental Methodology"></a>Experimental Methodology</h3><p>​        由于实际的震动在工作生产环境中很难测量统计。实验是做了一个仿真的情况。如下图所示：</p>
+<p><img src="https://i.loli.net/2021/08/09/RkL3dSyHGiDvmYF.png" alt="`LD39R_X_VMLX_`QL_179IH.png"></p>
+<p>​        实验是包含了横向振动和纵向振动。同时，为了保证实验的真实性，硬盘被设置成是在工作的，绕过主机文件系统直接对硬盘执行输入/输出操作。关注点在于随机IO，并且检测尾端延迟和带宽。</p>
+<p>​        同时，实验设置了相当多的对照组。分为不同的震动周期（6小时和120小时），不同的厂家，不同的震动状态（无震动、平行、垂直）。</p>
+<h3 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h3><p><img src="https://i.loli.net/2021/08/09/auvF4YZSfpbWTmX.png" alt="S315MR3__ZUS5`HXD__W`@S.png"></p>
+<p>​        从<strong>短期震动</strong>的图（6小时）上可以看到几个点：</p>
+<p>​        1、读写尾端延迟均受到震动的影响。</p>
+<p>​        2、所有的厂家制造的SSD都受到了震动的影响。</p>
+<p>​        3、从实验结果看上去，垂直的震动影响比平行的震动影响要大。</p>
+<p>​        并且后续文章提及，检查smart属性时发现，不论是水平震动还是垂直震动，都没有发现其与“介质磨损”有任何相关的地方。并且没有发现在磨损的情况下错误率有所上升。因此推论，应当是收震动影响的中央处理器对FTL的操作产生了延迟导致的效率变低。</p>
+<p>​        上述的数据来自于震动时，接下来文章研究了影响带来的<strong>后续影响</strong>，即当经历了短期震动之后对于重新进去进入无震动情况下的硬盘是否产生了影响。</p>
+<p><img src="https://i.loli.net/2021/08/09/b1CLNFBcjeIOYEp.png" alt="BG8FDGIYW_J_R_BF_BC~J8L.png"></p>
+<p>​        同样的，从实验结果中也可以看到一些现象，总体来说垂直震动的后续影响并不大，较少的幅度很有可能时原本就存在的误差，但是从平行震动来看，影响幅度较大。总体来说，后续影响确实存在。</p>
+<p><img src="https://i.loli.net/2021/08/09/jTik85Ic4ulJvX6.png" alt="J0D2TDAHN@G8_M_FQXNB~J8.png"></p>
+<p>​        从长期（120小时）的实验结果来看，似乎平行震动的影响远大于垂直震动，但是需要注意的是，垂直震动在短期震动进行时会对读写的尾端延迟产生较大的影响。因此，从结果来看，似乎平行震动更加倾向于长期的持久性损害。</p>
+<p><img src="https://i.loli.net/2021/08/09/96iBR2wQpvzbWZ8.png" alt="S_N~ZLJ3W_`@7GUA_M1_~_O.png"></p>
+<p>​        并且长时间的震动对于带宽的影响也较大。</p>
+<p>​        同时为了进一步探究震动对于出错的影响，长时间的震动实验保持了下去，直到硬盘写入过多数据而磨损。从最后的结果来看，尽管不是所有的硬盘都立刻失效，但是还是有一部分的硬盘在超过写入耐久之前以及在长期震动窗口结束后不久就观察到了短暂故障。但是从smart数据来看，类似Media_Wearout_Indicator、Available _ Reservd _ Space和Hardware_ECC_Recovered等并没有观察到震动带来了决定性影响。这些现象都说明震动确实不仅会影响SSD的性能，还会影响SSD的寿命。但是这些都非常难以预测。并且目前还没有能够找到确切的原因。</p>
+<h3 id="Reflection"><a href="#Reflection" class="headerlink" title="Reflection"></a>Reflection</h3><p>​        怎么说呢，从实验的设置来看，虽然考虑到了方向、时长、厂家等对比条件，但是还不够细致。6个小时的短期震动和120小时的长期震动，并没有比较合理的解释，并且看起来也和实际情况并不是很符合。文章中提到的环境为无人驾驶汽车和数据中心。这二者可能都会存在猝发的震动情况，因此应该将猝发的情况考虑进去。同时，文章所设置的震动条件为机器模拟，机器能够模拟的震动为方波、正弦波等规律震动，但是实际情况下的震动可能会在某个时刻时大时小。</p>
+<p>​        总体来说，震动对于SSD的影响，确实是一个比较新颖的考虑角度，也是后续可以继续研究的一个方向。</p>
+<p>​        还有就是这篇文章是有原始数据，<a href="https://github.com/GoodwillComputingLab/SSDVibration。但是数据量比较大，暂时还没有仔细阅读。" target="_blank" rel="noopener">https://github.com/GoodwillComputingLab/SSDVibration。但是数据量比较大，暂时还没有仔细阅读。</a></p>
 ]]></content>
       <categories>
-        <category>数据结构</category>
+        <category>论文分析</category>
       </categories>
       <tags>
-        <tag>Data Structure</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>线性表（四）--循环链表 （C语言实现）</title>
-    <url>/2021/07/27/%E7%BA%BF%E6%80%A7%E8%A1%A8%EF%BC%88%E5%9B%9B%EF%BC%89--%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8/</url>
-    <content><![CDATA[<p>想不到把 还有四。。。。其实还有五六七八九。。。。。</p>
-<p><img src="https://i.loli.net/2018/07/30/5b5e8325bb4e2.jpg" alt></p>
-<p>通过前面对单链表的学习，我们知道单链表只能从当前结点出发向后操作。那么啥叫循环链表结构嘞。循环循环，也就是首尾相接的链表，是不是很好理解。（我不会告诉你就是单链表的尾结点指向头结点或是第一个结点，一般仍以头结点表示一个链表）。。。。。<br><a id="more"></a><br>这样我们就可以从任一结点开始遍历整个链表，而不是只能从头结点开始。</p>
-<p>如何创建就不再细写了，可以参考之前文章中的头插法和尾插法。</p>
-<p>那么我们就来看看带头结点的循环单链表的一般形式循环单链表的合并吧。</p>
-<p>遍历两链表找表尾；将第一表尾链接第二表头，将第二表尾链接第一表头就可以了。</p>
-<pre><code>LinkList merge_ 1(LinkListLA,LinkList LB) 
-{  /*此算法将两个采用头指针的循环单链表的首尾连接起来*/ 
-    Node *p, *q; 
-    p=LA; q=LB; 
-    while (p-&gt;next!=LA) 
-        p=p-&gt;next; /*找到表LA的表尾，用p指向它*/ 
-    while (q-&gt;next!=LB) 
-        q=q-&gt;next; /*找到表LB的表尾，用q指向它*/ 
-    q-&gt;next=LA; /*修改表LB 的尾指针，使之指向表LA 的头结点*/ 
-    p-&gt;next=LB-&gt;next; /*修改表LA的尾指针，使之指向表LB 中的第一个结点*/ 
-    free(LB); 
-    return(LA); 
-} 
-
-
-LinkList  merge_2（LinkList RA,LinkList RB） 
-{  /*此算法将两个采用尾指针的循环链表首尾连接起来*/ 
-    Node *p; 
-    p=RA-&gt;next; /*保存链表RA的头结点地址*/ 
-    RA-&gt;next=RB-&gt;next-&gt;next;/*链表RB的开始结点链到链表RA的终端结点之后*/  
-    free(RB-&gt;next);/*释放链表RB的头结点*/ 
-    RB-&gt;next=p;/*链表RA的头结点链到链表RB的终端结点之后*/ 
-    return  RB;/*返回新循环链表的尾指针*/ 
-} 
-</code></pre><p>这里有些地方需要说明一下，那就是可能-&gt;next-&gt;next有些绕，其实这是将其连到了第一个指针而不是头指针，这是有区别的。其次关于free（）函数，free()的调用方式是：void free(void   *ptr)。是释放由ptr所指的内存，并将它返回给堆，以便这些内存成为再分配时的可用内存，而不是将其置为null。<br>其实作为循环链表，连接时为什么非要找到头尾结点，我想了想，大概是因为头结点的存在吧，毕竟头结点对于整个表的内容是无关的。（当然也可能不是。。也可能可以随便找个结点。。。仍待考证。。。。）</p>
-<p><strong>总的来说，循环链表与单链表最大的区别就是可以从当前结点遍历所有结点。</strong></p>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>Data Structure</tag>
+        <tag>data center failures</tag>
       </tags>
   </entry>
   <entry>
@@ -1149,39 +1210,6 @@ int DeleteQueue(SeqQueue *Q, QueueElementType * x)
 <h2 id="七、一种面向SSD-HDD混合存储的热区跟踪替换算法"><a href="#七、一种面向SSD-HDD混合存储的热区跟踪替换算法" class="headerlink" title="七、一种面向SSD-HDD混合存储的热区跟踪替换算法"></a>七、一种面向SSD-HDD混合存储的热区跟踪替换算法</h2><p><strong>内容解读：</strong><br>&emsp;&emsp;文章主要内容是提出了一种面向云计算这样的多任务共享存储系统的环境，设计适合 SSD-HDD 混合存储系统使用的替换算法，尽力避免发生 SSD 数据块替换时， 热点区域数据块被替换掉的情况。这个算法的前提需要把数据进行分类，存储空间被分成大小一致的若 干个连续的区(Zone)。当区的大小为256MB时，分别统计各个区在一段时间内的访问次数，将一个时期内区内数据块访问次数相对多的区称为这个时期的“热区( Hot Zone) ”，访问少的区叫做“冷区( Cold Zone) ”。集中访问模式的大部分 I/O 工作流都集中在一定数量的热区内，显然热区的数据块被再次访问的概率高于冷区，而冷区的访问大部分是由随机 I/O 工作流 产生的请求。<br>&emsp;&emsp;那这个替换算法的目标就是尽可能的把热区数据保留在缓存之中。有些类似于冷热数据的区分，但是冷热数据一般使用先进先出队列，但是对于一段时间内的访问次数，先进先出可能不能有效识别。如果用计数器再进行遍历，又会使效率低下。所以文章提出了一种类似于 Linux 内核的页高速缓存机制的基树( Radix Tree) 的数据结构来管理区访问历史。<br>&emsp;&emsp;基树的叶子节点指向每个区，每个叶子节点记录区的热度值(访问计数) 、区数据块计数、节点访问计数。非叶子节点记录其所有子节点的汇总信息，每个节点包含的子节点的个数称为基，基树的高度由基树的基和区的个数决定。基数的叶子节点包含一个指向该区数据块 LRU 链表的指针。<br>&emsp;&emsp;这样，所有节点中需要包含一个热度值。每次对区内数据块的访问，该区的热度之都要加1，并且所有父节点都需要加1。又因为这样的话，很可能导致一些高层非叶节点的热度值溢出，所以需要在节点的热度值溢出的时候，把本节点的所有热度值右移1位，热值右移1位相当于使这一个时刻之前的热度值的权重降为1 /2，使近期的访问量在热度值中占有更高的权重。当一个区内的数据块长时间没有访问时，其热度值将不断变小直至变为0，成为冷区。<br>&emsp;&emsp;有了这样的管理结构，替换方法就会变得很简单。被替换数据块的选取原则是从 SSD 中 热度值最低的冷区中选取，当被选中的冷区包含多个数据块时，则依据LRU算法选取，冷区的查找是从根节点开始的，首先找到本层热度值最低且在SSD中有数据块的区节点，然后依次向下一层查找，最后检索到的叶子节点所指向的区就是要查找的冷区。<br>&emsp;&emsp;同时，根据多任务的 I/O 工作流具有顺序访问和区域集中的特性，可以采取预取策略增加命中率，可以采用两种预取策略: 一是定期扫描热区的信息，选择热度值高的区，调入这些区的未调入的数据块。二是在数据块调入时，查看该区的热度值是否达到一定门限，如果是，则试图调入该数据块之后的几个数据块。<br>&emsp;&emsp;在实验中，典型多任务共享存储环境下HZT算法可以使SSD缓存的命中率比使用 LRU( Least Recently Used) 算法的系统提高12%。采用适当的预取策略，该算法的命中率与 LRU 算法相比可获得 23% 的提升。  <br><br><br><strong>读后思考及想法：</strong><br>&emsp;&emsp;文章在提升SSD-HDD混合存储性能的着眼点是缓存的替换算法。和之前论文中提到的冷热数据监测和替换算法不同，文章提出的算法是先将数据分成较大的块，替换时再去块中进行查找替换，而不是直接以数据块的单位进行。或许这个是借鉴了操作系统中的重要概念，局部性原理。<br>&emsp;&emsp;其次就是提出的独特的数据管理结构。简单的去了解了一下Radix Tree，发现这是用来解决hash冲突和hash表过大的替代品。适合处理非常长的、可变长度的键值。用来作为热区识别，确实有异曲同工之妙。但是文中对于热度值溢出的处理，我还有一点不明白的地方，文中提到随着访问量增加，热度值可能溢出( 尤其是上层节点) ，节点内所有热度值右移1 位不会改变本节点内的热度排序，所以不需要修改同层不同节点和不同层节点。不需要修改不同层节点我能够理解，但是不需要修改同层不同节点，那在最后替换时不是就影响选择了吗。这一点暂时还是不能理解。</p>
 <hr>
 <h2 id="八、Cost-Capacity-and-Performance-Analyses-for-Hybrid-SCM-NAND-Flash-SSD"><a href="#八、Cost-Capacity-and-Performance-Analyses-for-Hybrid-SCM-NAND-Flash-SSD" class="headerlink" title="八、Cost, Capacity, and Performance Analyses for Hybrid SCM/NAND Flash SSD"></a>八、Cost, Capacity, and Performance Analyses for Hybrid SCM/NAND Flash SSD</h2><p><strong>内容解读：</strong><br>&emsp;&emsp;文章主要的着眼点在于经济性。<br>&emsp;&emsp;由于工作负载特性的多样性，因此需要对 SCM 和 NAND 闪存容量要求进行分析，以满足每个应用程序的性能约束。除此之外，SCM芯片的设计需要在芯片区域和芯片的各种延迟之间进行平衡。当使用具有不同的延迟参数的 SCM 芯片时，预期需要不同的最佳 SCM 容量要求。因为SCM芯片成本与芯片区域直接相关，而芯片区域又依赖于设计中的写入和读取延迟参数。因此，根据SCM芯片的SCM容量要求和面积成本模型，就可以进行经济高效的SCM芯片设计。<br>&emsp;&emsp;文章首先比较常规的分析了在典型工作负载的情况下，为了达到应用要求，SCM的容量与SCM的读写延迟之间的关系。实验得到了许多结论，像是当SCM的写入或读取延迟时间较长时，SSD吞吐量将受到抑制等。<br>&emsp;&emsp;进一步，文章探讨了SCM延迟参数对SCM芯片面积的依赖性。由于芯片成本与芯片面积直接相关，因此可以得出SCM成本对芯片延迟的依赖性。但是当PRAM的写入和读取延迟改变时，存储器阵列，字线解码器，读出放大器等的大小将相应地改变，所以说为每个不同的值选择面积变化的程度并不是精确的科学，而是取决于要素之间的复杂交互作用，例如布局物理设计规则，布局块纵横比，晶体管驱动电流，寄生电容，噪声余量 ，电源平面等。因此文章给出了一个数学模型来进行近似模拟。<br>&emsp;&emsp;总而言之，所需的最小SCM容量和读取延时应由工作负载类型和SCMwrite / read延迟比率确定。 给定足够的应用程序SCM容量，则存在最佳SCM延迟参数，可将SCM成本降至最低。    <br><br><br><strong>读后思考及想法：</strong><br>&emsp;&emsp;在之前的论文中基本都是不考虑延迟参数带来的成本，只考虑SCM和NAND的容量之比，而这篇文章则给出了新的观点，那就是还需要考虑延迟和芯片面积的平衡，进而找到最佳的性价比。也是从一个新的角度去改进混合式存储。</p>
-]]></content>
-      <categories>
-        <category>论文分析</category>
-      </categories>
-      <tags>
-        <tag>data center failures</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>论文阅读：What does Vibration do to Your SSD?</title>
-    <url>/2021/08/16/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%EF%BC%9AWhat%20does%20Vibration%20do%20to%20Your%20SSD%EF%BC%88DAC%E2%80%9819%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="论文阅读：What-does-Vibration-do-to-Your-SSD-（DAC‘19）"><a href="#论文阅读：What-does-Vibration-do-to-Your-SSD-（DAC‘19）" class="headerlink" title="论文阅读：What does Vibration do to Your SSD?（DAC‘19）"></a>论文阅读：What does Vibration do to Your SSD?（DAC‘19）</h1><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract:"></a>Abstract:</h3><p>​        尽管Nand Flash源于其与非门的结构，抗震性相比较与普通Hdd有极大的提升（由于其不存在任何移动的机械部件，因此认为更能抵抗震动。），但是研究发现震动依旧会对SSD造成影响。</p>
-<h3 id="Experimental-Methodology"><a href="#Experimental-Methodology" class="headerlink" title="Experimental Methodology"></a>Experimental Methodology</h3><p>​        由于实际的震动在工作生产环境中很难测量统计。实验是做了一个仿真的情况。如下图所示：</p>
-<p><img src="https://i.loli.net/2021/08/09/RkL3dSyHGiDvmYF.png" alt="`LD39R_X_VMLX_`QL_179IH.png"></p>
-<p>​        实验是包含了横向振动和纵向振动。同时，为了保证实验的真实性，硬盘被设置成是在工作的，绕过主机文件系统直接对硬盘执行输入/输出操作。关注点在于随机IO，并且检测尾端延迟和带宽。</p>
-<p>​        同时，实验设置了相当多的对照组。分为不同的震动周期（6小时和120小时），不同的厂家，不同的震动状态（无震动、平行、垂直）。</p>
-<h3 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h3><p><img src="https://i.loli.net/2021/08/09/auvF4YZSfpbWTmX.png" alt="S315MR3__ZUS5`HXD__W`@S.png"></p>
-<p>​        从<strong>短期震动</strong>的图（6小时）上可以看到几个点：</p>
-<p>​        1、读写尾端延迟均受到震动的影响。</p>
-<p>​        2、所有的厂家制造的SSD都受到了震动的影响。</p>
-<p>​        3、从实验结果看上去，垂直的震动影响比平行的震动影响要大。</p>
-<p>​        并且后续文章提及，检查smart属性时发现，不论是水平震动还是垂直震动，都没有发现其与“介质磨损”有任何相关的地方。并且没有发现在磨损的情况下错误率有所上升。因此推论，应当是收震动影响的中央处理器对FTL的操作产生了延迟导致的效率变低。</p>
-<p>​        上述的数据来自于震动时，接下来文章研究了影响带来的<strong>后续影响</strong>，即当经历了短期震动之后对于重新进去进入无震动情况下的硬盘是否产生了影响。</p>
-<p><img src="https://i.loli.net/2021/08/09/b1CLNFBcjeIOYEp.png" alt="BG8FDGIYW_J_R_BF_BC~J8L.png"></p>
-<p>​        同样的，从实验结果中也可以看到一些现象，总体来说垂直震动的后续影响并不大，较少的幅度很有可能时原本就存在的误差，但是从平行震动来看，影响幅度较大。总体来说，后续影响确实存在。</p>
-<p><img src="https://i.loli.net/2021/08/09/jTik85Ic4ulJvX6.png" alt="J0D2TDAHN@G8_M_FQXNB~J8.png"></p>
-<p>​        从长期（120小时）的实验结果来看，似乎平行震动的影响远大于垂直震动，但是需要注意的是，垂直震动在短期震动进行时会对读写的尾端延迟产生较大的影响。因此，从结果来看，似乎平行震动更加倾向于长期的持久性损害。</p>
-<p><img src="https://i.loli.net/2021/08/09/96iBR2wQpvzbWZ8.png" alt="S_N~ZLJ3W_`@7GUA_M1_~_O.png"></p>
-<p>​        并且长时间的震动对于带宽的影响也较大。</p>
-<p>​        同时为了进一步探究震动对于出错的影响，长时间的震动实验保持了下去，直到硬盘写入过多数据而磨损。从最后的结果来看，尽管不是所有的硬盘都立刻失效，但是还是有一部分的硬盘在超过写入耐久之前以及在长期震动窗口结束后不久就观察到了短暂故障。但是从smart数据来看，类似Media_Wearout_Indicator、Available _ Reservd _ Space和Hardware_ECC_Recovered等并没有观察到震动带来了决定性影响。这些现象都说明震动确实不仅会影响SSD的性能，还会影响SSD的寿命。但是这些都非常难以预测。并且目前还没有能够找到确切的原因。</p>
-<h3 id="Reflection"><a href="#Reflection" class="headerlink" title="Reflection"></a>Reflection</h3><p>​        怎么说呢，从实验的设置来看，虽然考虑到了方向、时长、厂家等对比条件，但是还不够细致。6个小时的短期震动和120小时的长期震动，并没有比较合理的解释，并且看起来也和实际情况并不是很符合。文章中提到的环境为无人驾驶汽车和数据中心。这二者可能都会存在猝发的震动情况，因此应该将猝发的情况考虑进去。同时，文章所设置的震动条件为机器模拟，机器能够模拟的震动为方波、正弦波等规律震动，但是实际情况下的震动可能会在某个时刻时大时小。</p>
-<p>​        总体来说，震动对于SSD的影响，确实是一个比较新颖的考虑角度，也是后续可以继续研究的一个方向。</p>
-<p>​        还有就是这篇文章是有原始数据，<a href="https://github.com/GoodwillComputingLab/SSDVibration。但是数据量比较大，暂时还没有仔细阅读。" target="_blank" rel="noopener">https://github.com/GoodwillComputingLab/SSDVibration。但是数据量比较大，暂时还没有仔细阅读。</a></p>
 ]]></content>
       <categories>
         <category>论文分析</category>

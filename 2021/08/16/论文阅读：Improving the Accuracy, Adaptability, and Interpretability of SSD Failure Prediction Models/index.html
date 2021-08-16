@@ -73,7 +73,7 @@
 
 
 
-  <meta name="keywords" content="Data Structure,">
+  <meta name="keywords" content="data center failures,">
 
 
 
@@ -84,18 +84,26 @@
 
 
 
-<meta name="description" content="我们已经知道了栈的定义以及有了对栈的基本应用，我们现在就要进一步对栈的应用有更深入的了解。 递归，就是在定义自身的同时又出现了对自身的调用。而递归又分为两种，直接和间接。直接是在定义函数体内直接调用自己，而间接则是经过一系列中间调用函数语句，通过其他函数间接调用自己。 事实上，递归的实现是在栈的基础上实现的。（这个事情之后会提） 那么有哪些我们熟悉的递归呢？斐波那契数列肯定是我们会第一个想到的。其">
-<meta name="keywords" content="Data Structure">
+<meta name="description" content="论文阅读：Improving the Accuracy, Adaptability, and Interpretability of SSD Failure Prediction Models?（SoCC ’20）ABSTRACT文章也是使用机器学习进行硬盘故障的错误预测，不同于其他的文章基本使用随机森林，这篇文章提出了使用1-级隔离森林（1-class isolation forest）和基于自">
+<meta name="keywords" content="data center failures">
 <meta property="og:type" content="article">
-<meta property="og:title" content="栈与递归（C语言实现）">
-<meta property="og:url" content="http://yoursite.com/2021/07/27/栈与递归/index.html">
+<meta property="og:title" content="论文阅读：Improving the Accuracy, Adaptability, and Interpretability of SSD Failure Prediction Models?">
+<meta property="og:url" content="http://yoursite.com/2021/08/16/论文阅读：Improving the Accuracy, Adaptability, and Interpretability of SSD Failure Prediction Models/index.html">
 <meta property="og:site_name" content="丷人冂口">
-<meta property="og:description" content="我们已经知道了栈的定义以及有了对栈的基本应用，我们现在就要进一步对栈的应用有更深入的了解。 递归，就是在定义自身的同时又出现了对自身的调用。而递归又分为两种，直接和间接。直接是在定义函数体内直接调用自己，而间接则是经过一系列中间调用函数语句，通过其他函数间接调用自己。 事实上，递归的实现是在栈的基础上实现的。（这个事情之后会提） 那么有哪些我们熟悉的递归呢？斐波那契数列肯定是我们会第一个想到的。其">
+<meta property="og:description" content="论文阅读：Improving the Accuracy, Adaptability, and Interpretability of SSD Failure Prediction Models?（SoCC ’20）ABSTRACT文章也是使用机器学习进行硬盘故障的错误预测，不同于其他的文章基本使用随机森林，这篇文章提出了使用1-级隔离森林（1-class isolation forest）和基于自">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-08T07:40:35.918Z">
+<meta property="og:image" content="https://i.loli.net/2021/08/16/OEqdlewMF48vcUS.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/16/763ogAQFBiYR5Mf.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/16/nt43EWIdSgpyGaU.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/16/8HoYaVKk6u7D1EX.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/16/jmqOv35XGQdpC8J.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/16/zabf8rU2myICiAd.png">
+<meta property="og:image" content="file:///C:/Users/lyj/AppData/Roaming/Tencent/Users/1033125202/QQ/WinTemp/RichOle/%7BHGZIKXNERQQ@IVOX[1XZ19.png">
+<meta property="og:updated_time" content="2021-08-16T08:24:20.705Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="栈与递归（C语言实现）">
-<meta name="twitter:description" content="我们已经知道了栈的定义以及有了对栈的基本应用，我们现在就要进一步对栈的应用有更深入的了解。 递归，就是在定义自身的同时又出现了对自身的调用。而递归又分为两种，直接和间接。直接是在定义函数体内直接调用自己，而间接则是经过一系列中间调用函数语句，通过其他函数间接调用自己。 事实上，递归的实现是在栈的基础上实现的。（这个事情之后会提） 那么有哪些我们熟悉的递归呢？斐波那契数列肯定是我们会第一个想到的。其">
+<meta name="twitter:title" content="论文阅读：Improving the Accuracy, Adaptability, and Interpretability of SSD Failure Prediction Models?">
+<meta name="twitter:description" content="论文阅读：Improving the Accuracy, Adaptability, and Interpretability of SSD Failure Prediction Models?（SoCC ’20）ABSTRACT文章也是使用机器学习进行硬盘故障的错误预测，不同于其他的文章基本使用随机森林，这篇文章提出了使用1-级隔离森林（1-class isolation forest）和基于自">
+<meta name="twitter:image" content="https://i.loli.net/2021/08/16/OEqdlewMF48vcUS.png">
 
 
 
@@ -125,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2021/07/27/栈与递归/">
+  <link rel="canonical" href="http://yoursite.com/2021/08/16/论文阅读：Improving the Accuracy, Adaptability, and Interpretability of SSD Failure Prediction Models/">
 
 
 
 
 
-  <title>栈与递归（C语言实现） | 丷人冂口</title>
+  <title>论文阅读：Improving the Accuracy, Adaptability, and Interpretability of SSD Failure Prediction Models? | 丷人冂口</title>
   
 
 
@@ -290,7 +298,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/07/27/栈与递归/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/08/16/论文阅读：Improving the Accuracy, Adaptability, and Interpretability of SSD Failure Prediction Models/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lyjgod">
@@ -307,7 +315,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">栈与递归（C语言实现）</h1>
+          <h1 class="post-title" itemprop="name headline">论文阅读：Improving the Accuracy, Adaptability, and Interpretability of SSD Failure Prediction Models?</h1>
         
 
         <div class="post-meta">
@@ -319,8 +327,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-07-27T19:15:43+08:00">
-                2021-07-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-08-16T16:23:12+08:00">
+                2021-08-16
               </time>
             
 
@@ -342,8 +350,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
+                  <a href="/categories/论文分析/" itemprop="url" rel="index">
+                    <span itemprop="name">论文分析</span>
                   </a>
                 </span>
 
@@ -379,39 +387,23 @@
       
 
       
-        <p>我们已经知道了栈的定义以及有了对栈的基本应用，我们现在就要进一步对栈的应用有更深入的了解。</p>
-<p>递归，就是在定义自身的同时又出现了对自身的调用。而递归又分为两种，直接和间接。直接是在定义函数体内直接调用自己，而间接则是经过一系列中间调用函数语句，通过其他函数间接调用自己。</p>
-<p><strong>事实上，递归的实现是在栈的基础上实现的。</strong>（这个事情之后会提）</p>
-<p>那么有哪些我们熟悉的递归呢？斐波那契数列肯定是我们会第一个想到的。其次是阿克曼函数，可能这个函数会有些生疏。</p>
-<pre><code>上述 Ackerman 函数可用一个简单的 C 语言函数描述如下： 
-int ack(int m,int n) 
-{  
-    if(m==0) 
-        return n+1;  
-    else if (n==0) 
-        return ack(m-1,1); 
-    else return ack(m-1, ack(m,n-1)); 
-} 
-</code></pre><a id="more"></a>
-<p>当然还要一个非常非常经典的题目，<strong>汉诺塔问题</strong>。<br>n阶Hanoi塔问题：假设有三个分别命名为X,Y和Z的塔座，在塔座X上插有n个直径大小各不相同、从小到大编号为1，2,… ，n的圆盘。现要求将塔座X上的n个圆盘移至塔座Z上，并仍按同样顺序叠排。圆盘移动时必须遵循下列规则：<br>①    每次只能移动一个圆盘；<br>②    圆盘可以插在X,Y和Z中的任何一个塔座上；<br>③    任何时刻都不能将一个较大的圆盘压在较小的圆盘之上。 </p>
-<p>当n=1时，问题比较简单，只要将编号为1的圆盘从座X直接移动到塔座Z上即可；当n&gt;1时，需利用塔座Y作辅助塔座，若能设法将压在编号为n的圆盘上的n-1个圆盘从塔座X(依照上述原则)移至塔座Y上，则可先将编号为n的圆盘从塔座X 移至塔座Z上，然后再将塔座Y上的n-1个圆盘(依照上述原则)移至塔座Z上。而如何将n-1个圆盘从一个塔座移至另一个塔座问题是一个和原问题具有相同特征属性的问题，只是问题的规模小于1，因此可以用同样方法求解。由此可得如下求解n阶Hanoi塔问题的递归算法</p>
-<pre><code>void hanoi(int n, char x, char y, char z) 
-/* 将塔座X上从上到下编号为1至n，且按直径由小到大叠放的n个圆盘，按规则搬到塔座Z上，Y用作辅助塔座。*/ 
-{ 
-   if(n==1) 
-     move(x,1,z); /*将编号为1的圆盘从x移动z*
-   else 
-   { 
-     hanoi(n-1,x,z,y);/* 将X上编号为1至n-1的圆盘移到y,z作辅助塔 */ 
-     move(x,n,z); /* 将编号为n的圆盘从x移到z */ 
-     hanoi(n-1, y,x ,z);  /* 将y上编号为1至n-1的圆盘移到z，x作辅助塔 */  
-   } 
-}  
-</code></pre><p>事实上，我们就可以得出一些递归问题算法的得出规律。<br>使用递归算法的前提有两个：<br>⑴原问题可以层层分解为类似的的子问题，且子问题比原问题的规模更小。<br>⑵规模最小的子问题具有直接解。</p>
-<p>设计递归算法的方法是：<br>⑴寻找分解方法：将原问题转化为子问题求解。（ 例：n!=n*(n-1)! ）<br>⑵设计递归出口：即根据规模最小的子问题，确定递归终止条件。（例：求解 n!时，当 n=1 时，n!=1）。</p>
-<p>那么在递归实现的时候都发生了些什么呢？<br>递归过程的实现递归进层（i→i +1 层）系统需要做三件事：<br>⑴    保留本层参数与返回地址；<br>⑵    为被调用函数的局部变量分配存储区，给下层参数赋值；<br>⑶    将程序转移到被调函数的入口。<br>而从被调用函数返回调用函数之前，递归退层（i←i +1 层）系统也应完成三件工作：<br>⑴    保存被调函数的计算结果；<br>⑵    释放被调函数的数据区，恢复上层参数；<br>⑶    依照被调函数保存的返回地址，将控制转移回调用函数。</p>
-<p>通过这些，我们也应该可以看到，其实递归的操作是十分多的，也就是说递归算法的效率其实很低。那么我们要如何将递归改为非递归呢？其实我们可以根据问题来实现用循环来实现递归，就好比斐波那契循环，其实用循环可以很容易实现。</p>
-<p>ok，栈到这里就结束啦。接下来是队列。</p>
+        <h1 id="论文阅读：Improving-the-Accuracy-Adaptability-and-Interpretability-of-SSD-Failure-Prediction-Models-（SoCC-’20）"><a href="#论文阅读：Improving-the-Accuracy-Adaptability-and-Interpretability-of-SSD-Failure-Prediction-Models-（SoCC-’20）" class="headerlink" title="论文阅读：Improving the Accuracy, Adaptability, and Interpretability of SSD Failure Prediction Models?（SoCC ’20）"></a>论文阅读：Improving the Accuracy, Adaptability, and Interpretability of SSD Failure Prediction Models?（SoCC ’20）</h1><h3 id="ABSTRACT"><a href="#ABSTRACT" class="headerlink" title="ABSTRACT"></a>ABSTRACT</h3><p>文章也是使用机器学习进行硬盘故障的错误预测，不同于其他的文章基本使用随机森林，这篇文章提出了使用1-级隔离森林（1-class isolation forest）和基于自动编码器的异常检测技术来进行高精度的SSD故障预测。文章的数据集来源于谷歌，时间跨度为6年。</p>
+<h3 id="1-CLASS-FAILURE-PREDICTION"><a href="#1-CLASS-FAILURE-PREDICTION" class="headerlink" title="1-CLASS FAILURE PREDICTION"></a>1-CLASS FAILURE PREDICTION</h3><h5 id="Accurate-Prediction-of-SSD-Failures"><a href="#Accurate-Prediction-of-SSD-Failures" class="headerlink" title="Accurate Prediction of SSD Failures"></a>Accurate Prediction of SSD Failures</h5><p>从数据集来看，每一个固态硬盘观察值包含21个不同特征的值。并且数据集要解决两个最重要的问题：</p>
+<p>（1）特征空间过大，机器学习的算法训练和推理时间会随着特征数量的增长而呈现出近似指数的增长趋势。文章对此开发了一种方法来有效地组合不同特征选择算法的排名，从而在训练时间和准确性方面获得最佳的模型性能。</p>
+<p>（2）严重的类别不平衡。因为异常的SSD数量肯定远小于正常的数量。从数据集看健康SSD有4000多万个数据点，而有故障的SSD只有15000多个数据点。（并且某些修复后重新投入与使用又出现故障需要作为单独的故障看待，因此实际故障SSD会更少）</p>
+<h5 id="Predicting-unseen-failures"><a href="#Predicting-unseen-failures" class="headerlink" title="Predicting unseen failures"></a>Predicting unseen failures</h5><p>之前的研究检测硬盘故障的方法通常没有办法预测模型在训练期间没有经历过的看不见的故障类型，文章通过仅学习大多数类（健康SSD）来保证模型不会过度适应有限的已知或以前见过的故障类型。同时使用了自动编码器的设定。也就是说，首先训练模型，让模型能够学习健康的固态硬盘应该是怎么样的压缩表示，这样的话，健康SSD数据通过压缩表示（编码）进入模型之后会被识别为健康SSD，这样在进行解码时，输出就会相似。而输入和输出遭受大的重构误差，则样本被标记为异常(故障驱动器)。简单图示如下：</p>
+<p><img src="https://i.loli.net/2021/08/16/OEqdlewMF48vcUS.png" alt="51QX__8L`PWJBBHWUB_04OQ.png"></p>
+<h3 id="METHODOLOGY"><a href="#METHODOLOGY" class="headerlink" title="METHODOLOGY"></a>METHODOLOGY</h3><p>数据集被分为MLC A、B、C、D四种。获得的数据集中包含每个正常驱动器的大约300个观察值，以及每个故障驱动器的4到140个观察值。下图为21中特征值。</p>
+<p><img src="https://i.loli.net/2021/08/16/763ogAQFBiYR5Mf.png" alt="AZI`9S04YXV@E__V__G10_D.png"></p>
+<h5 id="Data-Preprocessing"><a href="#Data-Preprocessing" class="headerlink" title="Data Preprocessing"></a>Data Preprocessing</h5><p>做了一个额外的数据集，由参数N标识。举个例子，N=3就表明这个数据集包含每个驱动器出现故障前3天的所有观察点。</p>
+<h5 id="Feature-Selection"><a href="#Feature-Selection" class="headerlink" title="Feature Selection"></a>Feature Selection</h5><p>使用了三种不同的特征选择方法，Filter、Embedded 和Wrapper技术，并实现了八种不同的算法，包括Pearson排名、Spearman排名、卡方检验、方差分析(ANOV A)  、递归特征消除、额外树、Lasso正则化、弹性网和岭回归。下图为最终选用的特征。</p>
+<p><img src="https://i.loli.net/2021/08/16/nt43EWIdSgpyGaU.png" alt="~DTFAF____~_80SG2_J_8TU.png"></p>
+<h3 id="RESULTS"><a href="#RESULTS" class="headerlink" title="RESULTS"></a>RESULTS</h3><p>最后的实验结果和一些常见机器学习算法进行了一些对比，这里没什么好说的。</p>
+<p><img src="https://i.loli.net/2021/08/16/8HoYaVKk6u7D1EX.png" alt="M@GCP_OO_R_N_FY0C2NG6FU.png"></p>
+<p><img src="https://i.loli.net/2021/08/16/jmqOv35XGQdpC8J.png" alt="7B_OQ0X`~Q_94_OWYQ16DPV.png"></p>
+<p><img src="https://i.loli.net/2021/08/16/zabf8rU2myICiAd.png" alt="__H4_1_6`HFL27ZVJ__C_~4.png"></p>
+<p>然后就是文章提到的怎么去辨别是什么导致了判断出来的错误。因为文章使用的方式，是通过对健康SSD进行学习判断，进而反找出不符合健康SSD的故障SSD。但是这样会导致没有办法分辨是什么导致了故障，以及什么故障。文章的解决方案是对重构误差贡献大于每个特征的平均误差的特征被定义为一个重要原因。下图是所有重要原因在所有SSD编号中的一个分布图。</p>
+<p><img src="file:///C:\Users\lyj\AppData\Roaming\Tencent\Users\1033125202\QQ\WinTemp\RichOle\{HGZIKXNERQQ@IVOX[1XZ19.png" alt="img"></p>
 
       
     </div>
@@ -429,7 +421,7 @@ int ack(int m,int n)
       
         <div class="post-tags">
           
-            <a href="/tags/Data-Structure/" rel="tag"># Data Structure</a>
+            <a href="/tags/data-center-failures/" rel="tag"># data center failures</a>
           
         </div>
       
@@ -442,8 +434,8 @@ int ack(int m,int n)
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/07/27/最大上升子序列/" rel="next" title="经典算法问题 - 最大连续子数列和">
-                <i class="fa fa-chevron-left"></i> 经典算法问题 - 最大连续子数列和
+              <a href="/2021/08/16/论文阅读：What does Vibration do to Your SSD（DAC‘19）/" rel="next" title="论文阅读：What does Vibration do to Your SSD?">
+                <i class="fa fa-chevron-left"></i> 论文阅读：What does Vibration do to Your SSD?
               </a>
             
           </div>
@@ -451,10 +443,6 @@ int ack(int m,int n)
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/07/27/栈的定义以及栈的顺序结构/" rel="prev" title="栈的定义以及栈的顺序结构（C语言实现）">
-                栈的定义以及栈的顺序结构（C语言实现） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -511,8 +499,17 @@ int ack(int m,int n)
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -598,6 +595,22 @@ int ack(int m,int n)
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#论文阅读：Improving-the-Accuracy-Adaptability-and-Interpretability-of-SSD-Failure-Prediction-Models-（SoCC-’20）"><span class="nav-number">1.</span> <span class="nav-text">论文阅读：Improving the Accuracy, Adaptability, and Interpretability of SSD Failure Prediction Models?（SoCC ’20）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ABSTRACT"><span class="nav-number">1.0.1.</span> <span class="nav-text">ABSTRACT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-CLASS-FAILURE-PREDICTION"><span class="nav-number">1.0.2.</span> <span class="nav-text">1-CLASS FAILURE PREDICTION</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Accurate-Prediction-of-SSD-Failures"><span class="nav-number">1.0.2.0.1.</span> <span class="nav-text">Accurate Prediction of SSD Failures</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Predicting-unseen-failures"><span class="nav-number">1.0.2.0.2.</span> <span class="nav-text">Predicting unseen failures</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#METHODOLOGY"><span class="nav-number">1.0.3.</span> <span class="nav-text">METHODOLOGY</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Data-Preprocessing"><span class="nav-number">1.0.3.0.1.</span> <span class="nav-text">Data Preprocessing</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Feature-Selection"><span class="nav-number">1.0.3.0.2.</span> <span class="nav-text">Feature Selection</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#RESULTS"><span class="nav-number">1.0.4.</span> <span class="nav-text">RESULTS</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
